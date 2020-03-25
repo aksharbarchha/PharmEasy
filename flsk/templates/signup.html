@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Sign Up</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="static/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="static/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/css/util.css">
+	<link rel="stylesheet" type="text/css" href="static/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	<main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </main>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form method="post" class="login100-form validate-form">
+					<span class="login100-form-title p-b-26">
+						Sign up
+					</span>
+					<!-- <p ><H7><b><font color="#3498DB">Categories:
+					      1)Customer
+					      2)Supplier
+					      3)Pharmacy Owner(powner)
+					      4)Delivery Agent(dagent)</font></b></H7></p> -->
+					
+					<style>
+						.dropbtn {
+						  background-color: #3498DB;
+						  color: white;
+						  padding: 16px;
+						  font-size: 16px;
+						  border: none;
+						  cursor: pointer;
+						}
+						
+						.dropbtn:hover, .dropbtn:focus {
+						  background-color: #2980B9;
+						}
+						
+						.dropdown {
+						  position: relative;
+						  display: inline-block;
+						}
+						
+						.dropdown-content {
+						  display: none;
+						  position: absolute;
+						  background-color: #f1f1f1;
+						  min-width: 160px;
+						  overflow: auto;
+						  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+						  z-index: 1;
+						}
+						
+						.dropdown-content a {
+						  color: black;
+						  padding: 12px 16px;
+						  text-decoration: none;
+						  display: block;
+						}
+						
+						.dropdown a:hover {background-color: #ddd;}
+						
+						.show {display: block;}
+						</style>
+						</head>
+						<body>
+						
+						
+						<!-- <div class="dropdown">
+						  <button onclick="myFunction()" class="dropbtn">Select Category</button>
+						  <div id="myDropdown" class="dropdown-content">
+							<a href="#home">Customer</a>
+							<a href="#about">Delivery Agent</a>
+							<a href="#contact">Pharmacy Owner</a>
+							<a href="#contact">Supplier</a>
+
+						  </div>
+						</div>
+						
+						<script>
+						/* When the user clicks on the button, 
+						toggle between hiding and showing the dropdown content */
+						function myFunction() {
+						  document.getElementById("myDropdown").classList.toggle("show");
+						}
+						
+						// Close the dropdown if the user clicks outside of it
+						window.onclick = function(event) {
+						  if (!event.target.matches('.dropbtn')) {
+							var dropdowns = document.getElementsByClassName("dropdown-content");
+							var i;
+							for (i = 0; i < dropdowns.length; i++) {
+							  var openDropdown = dropdowns[i];
+							  if (openDropdown.classList.contains('show')) {
+								openDropdown.classList.remove('show');
+							  }
+							}
+						  }
+						}
+						</script> -->
+                  
+                    <div class="wrap-input100 validate-input" data-validate = "Enter Category">
+                            <select name="category" class="input100"><font color="#3498DB">
+                            	<option value="customer">Customer</option>
+                            	<option value="powner">Pharmacy Owner</option>
+                            	<option value="dagent">Delivery Agent</option>
+                            	<option value="supplier">Supplier</option>
+                            </select></font>
+                    </div>
+
+
+                    <div class="wrap-input100 validate-input" data-validate = "Enter FName">
+                            <input class="input100" type="text" name="fname">
+                            <span class="focus-input100" data-placeholder="First Name"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate = "Enter LName">
+                            <input class="input100" type="text" name="lname">
+                            <span class="focus-input100" data-placeholder="Last Name"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate = "Enter Address">
+                            <input class="input100" type="text" name="address">
+                            <span class="focus-input100" data-placeholder="Address"></span>
+                    </div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+						<input class="input100" type="text" name="email">
+						<span class="focus-input100" data-placeholder="Email"></span>
+                    </div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+						<input class="input100" type="password" name="pass">
+						<span class="focus-input100" data-placeholder="Enter Password"></span>
+					</div>
+					
+					<meta name="viewport" content="width=device-width, initial-scale=1">
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								Sign Up
+							</button>
+						</div>
+					</div>
+
+					
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/bootstrap/js/popper.js"></script>
+	<script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/daterangepicker/moment.min.js"></script>
+	<script src="static/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="static/js/main.js"></script>
+
+</body>
+</html>
