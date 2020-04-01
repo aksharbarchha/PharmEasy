@@ -48,7 +48,7 @@ def login():
                     # if session['user'] == 'customew'
                     # message = str('Login Successfull!!')
                     flash("Login Successfull!!", 'success')
-                    return redirect(url_for('customer'))
+                    return redirect(url_for('mhome'))
                 else:
                     flash("Password incorrect!!", 'danger')
                     return redirect(url_for('login'))
@@ -109,9 +109,14 @@ def about():
     return "About Page"
 
 
-@app.route("/customer")
-def customer():
-    return render_template("customer.html", title='Customer')
+@app.route("/cart")
+def cart():
+    return render_template("cart.html", title='Cart')
+
+
+@app.route("/mhome")
+def mhome():
+    return render_template("home.html", title='Home')
 
 
 if __name__ == "__main__":

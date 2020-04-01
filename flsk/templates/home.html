@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="icon" href="static/images/favicon.png"/>
+        <title>KJSCE Pharmacy</title>
+        <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="static/font-awesome/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="static/css/owl-carousel.css"/>
+        <script src="static/js/jquery.min.js"></script>
+        <script src="static/js/owl-carousel.js"></script>
+        <script src="static/js/bootstrap.min.js"></script>
+        <script src="static/js/custom.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-4" id="logo" >
+                    <a href="home.html" class="logo-text">
+                        KJSCE<span style="color:#39BAF0; font-size:40px">Pharmacy</span>
+                    </a>
+                </div>
+                <div class="col-md-5 col-sm-12 col-xs-12" style="display:none " id="navbar_hide" >
+                    <nav  role="navigation" class="navbar navbar-inverse">
+                        <a href="home.html" style="float: left" class="logo-text">
+                            Medi<span style="color:#39BAF0; font-size:40px">STORE</span>
+                        </a>
+                        <div id="nav">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="background: #8EBE08; border: none; margin-right: 0">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
+                <div class="col-md-4 col-md-offset-4 col-sm-offset-2  col-sm-6 col-xs-12" >
+                    <div id="top_right">
+                        <div id="cart">
+                            <div class="text">
+                                <div class="img">
+                                    <a href="{{ url_for('cart') }}"> <img class="img-responsive" src="static/images/cart.png" alt="" title="" width="26" height="27" /></a>
+                                </div><span>Your cart:</span><span class="cart_total">₹0.00</span><span class="cart_items">(0 items)</span>
+                            </div>
+                        </div>
+                        <div id="bottom_right">
+                            <div class="row">
+
+                                <div class="dropdown-bn wd-33 col-md-6 remove_PL col-xs-6">
+                                    <div class="row">
+                                        <div class=" pl-0 col-md-6 col-xs-6">
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container" >
+            <div class="row" id="search_manu" style="margin-top: 10px">
+                <div class="col-md-6 col-xs-12">
+                    <form  name="quick_find">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" placeholder="Enter search keywords here" class="form-control input-lg" id="inputGroup"/>
+                                <span class="input-group-addon">
+                                    <a href="#" style="color:white">Search</a>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6 col-xs-12">
+
+                    <form  name="manufacturers">
+                        <div class="form-group">
+                            <div class="">
+                                <select  style="font-size: 14px; background: #EAEAEA; border: none;" name="manufacturers_id"  size="1" class="input-lg form-control arrow-hide date_class">
+                                    <option value="" selected="selected">Select Medicine Type</option>
+                                    <option>local</option>
+                                    <option>generic</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="site_content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12 left_sidebar1">
+                        <div id="left_part">
+                            <div class="bs-example">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="infoBoxHeading">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Categories</a>
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                    <i  id="accordan_plus" class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="infoBoxContents">
+                                                    <a href="product.html">Category One</a>&nbsp;(94)<br />
+                                                    <a href="product.html">Category Two</a>&nbsp;(9)<br />
+                                                    <a href="product.html">Category Three</a>&nbsp;(5)<br />
+                                                    <a href="product.html">Category Four</a>&nbsp;(6)<br />
+                                                    <a href="product.html">Category Five</a>&nbsp;(94)<br />
+                                                    <a href="product.html">Category Six</a>&nbsp;(94)<br />
+                                                    <a href="product.html">Category Seven</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <script>
+                            function toggleChevron(e) {
+                                $(e.target)
+                                        .prev('.panel-heading')
+                                        .find("i.indicator")
+                                        .toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+                            }
+                            $('#accordion').on('hidden.bs.collapse', toggleChevron);
+                            $('#accordion').on('shown.bs.collapse', toggleChevron);
+                        </script>
+
+                    </div>
+                    <div class="col-md-9 col-sm-8 col-xs-12 right_sidebar1">
+                        <div id="right_part">
+                            <div class="contentContainer">
+                              <div class="contextText">
+                                <div class="breadcrumbs">
+                                  <a href="home.html"
+                              class ="headerNavigation"><i class ="fa fa-home"></i></a>
+                              </div>
+
+
+                              </div>
+
+                                <!----slidder start-!-->
+                                <div class="contentText">
+                                    <div class="infoBoxHeading">Today Bestsellers</div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12"  >
+                                            <!--                                        <div class="bg_best">-->
+                                            <div class="bg_best">
+                                                <div class="owl-carousel">
+                                                    <div class="item">
+                                                        <span>
+                                                            <a href="single-product.html">
+                                                                <img class="carasoul_image" src="static/images/d1.jpg">
+                                                            </a></span>
+                                                        <a class="btn btn-default"  href="cart.html" role="button" >
+                                                            Buy Now!
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <span>
+                                                            <a href="single-product.html">
+                                                                <img class="carasoul_image" src="static/images/img4.jpg">
+                                                            </a>
+                                                        </span>
+                                                        <a class="btn btn-default"  href="cart.html" role="button" >
+                                                            Buy Now!
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <span>
+                                                            <a href="single-product.html">
+                                                                <img class="carasoul_image" src="static/images/img6.jpg">
+                                                            </a></span>
+                                                        <a class="btn btn-default"  href="cart.html" role="button" >
+                                                            Buy Now!
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <span>
+                                                            <a href="single-product.html">
+                                                                <img class="carasoul_image" src="static/images/img13.jpg">
+                                                            </a></span>
+                                                        <a class="btn btn-default"  href="cart.html" role="button" >
+                                                            Buy Now!
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <span>
+                                                            <a href="single-product.html">
+                                                                <img class="carasoul_image" src="static/images/img14.jpg">
+                                                            </a></span>
+                                                        <a class="btn btn-default"  href="cart.html" role="button" >
+                                                            Buy Now!
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <span>
+                                                            <a href="single-product.html">
+                                                                <img class="carasoul_image" src="static/images/img16.jpg">
+                                                            </a></span>
+                                                        <a class="btn btn-default"  href="cart.html" role="button" >
+                                                            Buy Now!
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <span>
+                                                            <a href="single-product.html">
+                                                                <img class="carasoul_image" src="static/images/img15.jpg">
+                                                            </a></span>
+                                                        <a class="btn btn-default"  href="cart.html" role="button" >
+                                                            Buy Now!
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="item">
+                                                        <span>
+                                                            <a href="single-product.html">
+                                                                <img class="carasoul_image" src="static/images/img1.png">
+                                                            </a></span>
+                                                        <a class="btn btn-default"  href="cart.html" role="button" >
+                                                            Buy Now!
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <span>
+                                                            <a href="single-product.html">
+                                                                <img class="carasoul_image" src="static/images/d2.jpg">
+                                                            </a></span>
+                                                        <a class="btn btn-default"  href="cart.html" role="button" >
+                                                            Buy Now!
+                                                        </a>
+                                                    </div>
+                                                    <div class="item">
+                                                        <span>
+                                                            <a href="single-product.html">
+                                                                <img class="carasoul_image" src="static/images/d7.jpg">
+                                                            </a></span>
+                                                        <a class="btn btn-default"  href="cart.html" role="button" >
+                                                            Buy Now!
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <script>
+                                                    $(document).ready(function () {
+                                                        $('.owl-carousel').owlCarousel({
+                                                            loop: true,
+                                                            margin: 10,
+                                                            responsiveClass: true,
+                                                            responsive: {
+                                                                0: {
+                                                                    items: 2,
+                                                                    nav: true
+                                                                },
+                                                                600: {
+                                                                    items: 3,
+                                                                    nav: false
+                                                                },
+                                                                1000: {
+                                                                    items: 5,
+                                                                    nav: true,
+                                                                    loop: false,
+                                                                    margin: 20
+                                                                }
+
+                                                            }
+                                                        })
+                                                    })
+                                                </script>
+                                            </div>
+                                            <!--                                    </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!----slidder End-!-->
+                                <!----content_1--!-->
+                                <div class="contentText Static">
+                                    <h1>What is KJSCE Pharmacy</h1>
+                                    <p>KJSCE Pharmacy is a supplier of medicine which tries to supply medicine to the local public by cutting the middle man.</p>
+                                    <p>All Pharmacy stores and home oweners can order any medicine. Medicine is delivered door-to-door by our delivery agents.</p>
+                                </div>
+                                <!----content_1 End--!-->
+
+
+                                <!----content_2 For New Products--!-->
+                                <div class="contentText">
+                                    <h1>New Products For March</h1>
+                                    <div class="row margin-top product-layout_width">
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="static/single-product.html">Lorem Ipsum</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="single-product.html">
+                                                                    <img src="static/images/d1.jpg" class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€134.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    Lorem Ipsum is simply dummy text of the printing
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="static/single-product.html">Lorem second</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="static/single-product.html">
+                                                                    <img src="static/images/img4.jpg"  class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€21.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    Lorem Ipsum is simply dummy text of the printing
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="static/single-product.html">Lorem BIG-PACK</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="static/single-product.html">
+                                                                    <img src="static/images/img6.jpg"  class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€159.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    Lorem Ipsum is simply dummy text of the printing
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="static/single-product.html">Officiis phaedrum</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="static/single-product.html">
+                                                                    <img src="static/images/img13.jpg"  class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€26.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    Et vel atqui putent, eum ad quidam adipiscing inciderint
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="static/single-product.html">Munere vulputate</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="static/single-product.html">
+                                                                    <img src="static/images/img14.jpg"  class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€120.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    At affert congue mea, ea est tritani tacimates petentium
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="static/single-product.html">Lorem ipsum dolor</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="static/single-product.html">
+                                                                    <img src="static/images/img15.jpg"  class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€199.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    Lorem Ipsum is simply dummy text of the printing
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="static/single-product.html">Professional context</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="static/single-product.html">
+                                                                    <img src="static/images/img16.jpg"  class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€126.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    In a professional context it often happens that private
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="static/single-product.html">Dolorem ipsum</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="static/single-product.html">
+                                                                    <img src="static/images/img17.jpg"  class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€119.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    Lorem Ipsum is simply dummy text of the printing
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="single-product.html">Cicero famously</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="static/single-product.html">
+                                                                    <img src="static/images/img1.png"  class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€171.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!----content_2 End--!-->
+
+                                <!----content_3--!-->
+                                <div class="contentText">
+                                    <h1>Specials</h1>
+                                    <div class="row margin-top product-layout_width">
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="single-product.html">Aroma Therapy</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="static/single-product.html">
+                                                                    <img src="static/images/d17.jpg" class="img-responsive" width="200" height="200"/>
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€134.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    Lorem Ipsum is simply dummy text of the printing
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="static/single-product.html">Herbal</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="static/single-product.html">
+                                                                    <img src="static/images/d21.jpg"  class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€21.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    Lorem Ipsum is simply dummy text of the printing
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="static/single-product.html">Pills Drug</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="static/single-product.html">
+                                                                    <img src="static/images/d23.jpg"  class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€235.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    Lorem Ipsum is simply dummy text of the printing
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="static/single-product.html">Capsule Pill</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="static/single-product.html">
+                                                                    <img src="static/images/d2.jpg"  class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€137.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    Lorem Ipsum is simply dummy text of the printing
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="static/single-product.html">Medication Cure</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="static/single-product.html">
+                                                                    <img src="static/images/d7.jpg"  class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€212.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    Lorem Ipsum is simply dummy text of the printing
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <a href="static/single-product.html">China GuangDong Seeds</a>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="static/single-product.html">
+                                                                    <img src="static/images/d15.jpg"  class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <span class="new_price1">€129.00</span>
+                                                            <span class="saving1"></span><li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                    Lorem Ipsum is simply dummy text of the printing
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_buy_button">
+                                                            <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                                Buy Now!
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!----content_3 End--!-->
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="footer1">
+            <div class="container-fluid footer-background">
+                <div class="row">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-3 col-xs-12 txt-center">
+                                <a href="home.html">
+                                    <span class="logo-text">DRUGSTORE</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <a style="display: none" href="javascript:void(0);" class="scrollTop back-to-top" id="back-to-top">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+    </body>
+</html>
