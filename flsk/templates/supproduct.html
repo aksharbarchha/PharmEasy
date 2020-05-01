@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="icon" href="/static/images/favicon.png"/>
+        <title>KJSCE MediStore</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css"/> 
+        <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css"/>
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="/static/js/custom.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-4" id="logo" >
+                    <a href="home.html" class="logo-text">
+                        KJSCE<span style="color:#39BAF0; font-size:40px">Pharmacy</span>
+                    </a>
+                </div>
+                <div class="col-md-5 col-sm-12 col-xs-12" style="display:none " id="navbar_hide" >
+                    <nav  role="navigation" class="navbar navbar-inverse">
+                        <a href="home.html" style="float: left" class="logo-text">
+                            Medi<span style="color:#39BAF0; font-size:40px">STORE</span>
+                        </a>
+                        <div id="nav">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="background: #8EBE08; border: none; margin-right: 0">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="container" >
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                      {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} text-center">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                          </button>
+                          <strong>{{ message }}</strong>
+                        </div>
+                      {% endfor %}
+                    {% endif %}
+            {% endwith %}
+                  {% block content %}{% endblock %}
+            <div class="row" id="search_manu" style="margin-top: 10px">
+                <form  action="{{ url_for('qsearchsup') }}" method="POST">
+                <div class="col-md-6 col-xs-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" placeholder="Enter search keywords here" class="form-control input-lg" id="inputGroup"
+                                name="searc"/>
+                                <span class="input-group-addon">
+                                    <button class="btn btn-default" type="submit" style="color:white">Search</button>
+                                </span>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+
+                        <div class="form-group">
+                            <div class="">
+                                <select  style="font-size: 14px; background: #EAEAEA; border: none;"  placeholder="Select Medicine Type" size="1" class="input-lg form-control arrow-hide date_class" name="type">
+                                    <option value="" selected="selected">Select Medicine Type</option>
+                                    <option value="local">Local</option>
+                                    <option value="generic">Generic</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+                </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="site_content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12 left_sidebar1">
+                        <div id="left_part">
+                            <div class="bs-example">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="infoBoxHeading">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Categories</a>
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                    <i  id="accordan_plus" class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="infoBoxContents">
+                                                    <a href="{{ url_for('supproduct', pur='p1') }}">Category One (p1)</a><br />
+                                                    <a href="{{ url_for('supproduct', pur='p2') }}">Category Two (p2)</a><br />
+                                                    <a href="{{ url_for('supproduct', pur='p3') }}">Category Three (p3)</a><br />
+                                                    <a href="{{ url_for('supproduct', pur='p4') }}">Category Four (p4)</a><br />
+                                                    <a href="{{ url_for('supproduct', pur='p5') }}">Category Five (p5)</a><br />
+                                                    <a href="{{ url_for('supproduct', pur='p6') }}">Category Six (p6)</a><br />
+                                                    <a href="{{ url_for('supproduct', pur='p7') }}">Category Seven (p7)</a><br />
+                                                    <a href="{{ url_for('supproduct', pur='p8') }}">Category Seven (p8)</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="infoBoxHeading">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">What's New</a>
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                                    <i id="accordan_plus" class="indicator glyphicon glyphicon-chevron-up  pull-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <div class="infoBoxContents">    
+                                                    <h4><a href="{{ url_for('favourites') }}">Favourites</a><br /></h4>   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <script>
+                            function toggleChevron(e) {
+                                $(e.target)
+                                        .prev('.panel-heading')
+                                        .find("i.indicator")
+                                        .toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+                            }
+                            $('#accordion').on('hidden.bs.collapse', toggleChevron);
+                            $('#accordion').on('shown.bs.collapse', toggleChevron);
+                        </script>
+
+                    </div> 
+                    <div class="col-md-9 col-sm-8 col-xs-12" id="content">            
+                        <div class="contentText">
+                            <div class="breadcrumbs">
+                                <a href="home.html"><i class="fa fa-home"></i></a>
+                                <a href="#">Products</a>
+                            </div>
+                            <h1>Category {{ items[0][2] }}</h1>
+                            <div class="row">
+                                <div class="col-sm-2 col-xs-6"><img class="img-thumbnail"  src="/static/images/img15.jpg"></div>
+                                <div class="col-sm-10 col-xs-6"><p>
+                                        This page contains all the medicine list of Category {{ items[0][2] }}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            
+                                <!-- <div class="row">
+                                <div class="col-md-4">
+                                    <div class="btn-group hidden-xs">
+                                        <a class="btn btn-default" id="list-view" href="product-list.html"><i class="fa fa-th-list"></i></a>
+                                        <a class="btn btn-default" id="grid-view"><i class="fa fa-th"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-right txt-left">
+                                    <label for="input-sort" class="control-label" style="margin-top: 7px">Sort By:</label>
+                                </div>
+                                <div class="col-md-3 text-right">
+                                    <select  class="form-control" id="input-sort">
+                                        <option selected="selected">Name (A - Z)</option>
+                                        <option>Name (Z - A)</option>
+                                    </select>
+                                </div>
+                                
+                            </div> -->
+
+                            <div class="row margin-top product-layout_width">
+                                {% for item in items %}
+                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
+                                            <div class="product-thumb-height">
+                                                <div class="product-thumb transition">
+                                                    <ul>
+                                                        <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <H4><a href="#">{{ item[0] }}</a></H4>
+                                                            </div></li>
+                                                        <li class="li_product_image">
+                                                            <div class="image">
+                                                                <a href="#">
+                                                                    <img src="/static/images/d1.jpg" class="img-responsive" width="200" height="200" />
+                                                                </a>
+
+                                                            </div>
+                                                        </li>
+                                                        <br><br>
+                                                        <li class="li_product_price">
+                                                            <span class="old_price1"></span>
+                                                            <H5><b><span class="new_price1">Price: Rs.{{ item[3] }}</span></b></H5>
+                                                            <!-- <span class="saving1"></span> --></li>
+                                                        <li>
+                                                            <p>Brand: {{ item[1] }}</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>Purpose: {{ item[2] }}</p>
+                                                        </li>
+                                                        <li class="li_product_desc">
+                                                            <div class="caption">
+                                                                <p>
+                                                                   Type: {{ item[4] }} 
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="li_product_desc">
+                                                            <span>Availability:</span> <span class="check-stock">{{ item[7] }} Sheets Available</span>
+                                                        </li>
+                                                        
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                
+                            </div>
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="footer1">
+            <div class="container-fluid footer-background">
+                <div class="row">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-3 col-xs-12 txt-center">
+                                <a href="{{ url_for('supplier') }}">
+                                    <span class="logo-text">DRUGSTORE</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <a style="display: none" href="javascript:void(0);" class="scrollTop back-to-top" id="back-to-top">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+    </body>
+</html> 

@@ -1,0 +1,525 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="icon" href="/static/images/favicon.png"/>
+        <title>MediStore</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css"/> 
+        <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css"/>
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="/static/js/custom.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-4" id="logo" >
+                    <a href="{{ url_for('mhome') }}" class="logo-text">
+                        KJSCE<span style="color:#39BAF0; font-size:40px">Pharmacy</span>
+                    </a>
+                </div>
+                <div class="col-md-5 col-sm-12 col-xs-12" style="display:none " id="navbar_hide" >
+                    <nav  role="navigation" class="navbar navbar-inverse">
+                        <a href="{{ url_for('mhome') }}" style="float: left" class="logo-text">
+                            Medi<span style="color:#39BAF0; font-size:40px">STORE</span>
+                        </a>
+                        <div id="nav">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="background: #8EBE08; border: none; margin-right: 0">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
+                <div class="col-md-4 col-md-offset-4 col-sm-offset-2  col-sm-6 col-xs-12" >
+                    <div id="top_right">
+                        <div id="cart">
+                            <div class="text">
+                                <div class="img">
+                                    <a href="{{ url_for('cart') }}"> <img class="img-responsive" src="/static/images/cart.png" alt="" title="" width="26" height="27" /></a>
+                                </div><span>Your cart:</span><span class="cart_total">Rs. {{ '%0.2f'| format(subtotal|float) }}</span><span class="cart_items">({{ len_items }} items)</span>
+                                <div class="col-md-6 col-xs-6 wd_auto">
+                                    <div class="left">
+                                        <div class="login">
+                                            <a class="btn btn-default reg_button" href="{{ url_for('cart') }}">Cart</a> 
+                                            <a class="btn btn-default reg_button" href="{{ url_for('checkout') }}">Checkout</a>
+                                            <div class="dropdown btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Hi {{ session['person'] }} 
+                                                    <span class="caret"></span></button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="{{ url_for('updatepassword') }}">Update Password</a></li>
+                                                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+
+                                                </ul>
+                                            </div>
+                                        </div>      
+                                            
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                        <div id="bottom_right">
+                            <div class="row">
+
+                                <div class="dropdown-bn wd-33 col-md-6 remove_PL col-xs-6">
+                                    <div class="row">
+                                        <div class=" pl-0 col-md-6 col-xs-6">
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container" >
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                      {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} text-center">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                          </button>
+                          <strong>{{ message }}</strong>
+                        </div>
+                      {% endfor %}
+                    {% endif %}
+            {% endwith %}
+                  {% block content %}{% endblock %}
+            <div class="row" id="search_manu" style="margin-top: 10px">
+                <form  action="{{ url_for('qsearch') }}" method="POST">
+                <div class="col-md-6 col-xs-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" placeholder="Enter search keywords here" class="form-control input-lg" id="inputGroup"
+                                name="searc"/>
+                                <span class="input-group-addon">
+                                    <button class="btn btn-default" type="submit" style="color:white">Search</button>
+                                </span>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+
+                        <div class="form-group">
+                            <div class="">
+                                <select  style="font-size: 14px; background: #EAEAEA; border: none;"  placeholder="Select Medicine Type" size="1" class="input-lg form-control arrow-hide date_class" name="type">
+                                    <option value="" selected="selected">Select Medicine Type</option>
+                                    <option value="local">Local</option>
+                                    <option value="generic">Generic</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+                </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="site_content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12 left_sidebar1">
+                        <div id="left_part">
+                            <div class="bs-example">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="infoBoxHeading">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Categories</a>
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                    <i  id="accordan_plus" class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse in">
+                                            <div class="panel-body">
+                                                <div class="infoBoxContents">
+                                                    <a href="{{ url_for('product', pur='p1') }}">Category One (p1)</a><br />
+                                                    <a href="{{ url_for('product', pur='p2') }}">Category Two (p2)</a><br />
+                                                    <a href="{{ url_for('product', pur='p3') }}">Category Three (p3)</a><br />
+                                                    <a href="{{ url_for('product', pur='p4') }}">Category Four (p4)</a><br />
+                                                    <a href="{{ url_for('product', pur='p5') }}">Category Five (p5)</a><br />
+                                                    <a href="{{ url_for('product', pur='p6') }}">Category Six (p6)</a><br />
+                                                    <a href="{{ url_for('product', pur='p7') }}">Category Seven (p7)</a><br />
+                                                    <a href="{{ url_for('product', pur='p8') }}">Category Seven (p8)</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="infoBoxHeading">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">What's New</a>
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                                    <i id="accordan_plus" class="indicator glyphicon glyphicon-chevron-up  pull-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <div class="infoBoxContents">    
+                                                    <h4><a href="{{ url_for('favourites') }}">Favourites</a><br /></h4>   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="infoBoxHeading">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Offers%</a>
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                                    <i id="accordan_plus" class="indicator glyphicon glyphicon-chevron-up  pull-right"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div id="collapseThree" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <div class="infoBoxContents">    
+                                                    <h5>Use Coupon <h4><b>SOMAIYA15</b></h4> and get flat 15% Off on any order.<br /></h5>   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <script>
+                            function toggleChevron(e) {
+                                $(e.target)
+                                        .prev('.panel-heading')
+                                        .find("i.indicator")
+                                        .toggleClass('glyphicon-chevron-down glyphicon-chevron-up');
+                            }
+                            $('#accordion').on('hidden.bs.collapse', toggleChevron);
+                            $('#accordion').on('shown.bs.collapse', toggleChevron);
+                        </script>
+
+                    </div> 
+                    <div class="col-md-9 col-sm-8 col-xs-12" id="content">            
+                        <div class="breadcrumbs">
+                            <a href="{{ url_for('mhome') }}"><i class="fa fa-home"></i></a>
+                            <a href="">{{ items[0] }}</a>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="thumbnails">
+                                    <li><a  href="#" class="thumbnail fix-box"><img class="changeimg" src="/static/images/img15.jpg"></a></li>
+                                    <!-- <li class="image-additional"><a title="Dianabol"  class="thumbnail"> 
+                                            <img class="galleryimg" src="/static/images/img21.jpg"></a></li>
+                                    <li class="image-additional"><a title="Proviron"  class="thumbnail"> 
+                                            <img class="galleryimg" src="/static/images/img22.jpg"></a></li> -->
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="btn-group">
+                                    <form action="{{ url_for('favourites') }}" method="post">
+                                    <input type="hidden" name="med_id" value="{{ item[6] }}">
+                                    <input type="hidden" name="med_role" value="{{ item[4] }}" />
+                                    <!-- <button  type="submit" id="demo" onclick="myFunction()" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button> -->
+                                    <button  title="" class="btn btn-default mr_5" id="demo" onclick="myFunction()" type="submit"><i class="fa fa-heart"></i></button>
+                                    <script>
+                                    function myFunction() {
+                                      document.getElementById("demo").style.color = "cyan";
+                                    }
+                                    </script>
+                                </form>
+                                    <!-- <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button> -->
+                                </div>
+                                <div class="btn-group">
+                                    <button  title="" class="btn btn-default mr_5"  type="button"><i class="fa fa-heart"></i></button>
+                                    <button  title="" class="btn btn-default"  type="button"><i class="fa fa-exchange"></i></button>
+                                </div>
+                                <h1 style="color: #39baf0">{{ items[0] }}</h1>
+                                <ul class="list-unstyled product-section">
+                                    <li><span>Product Brand:</span> {{ items[1] }}</li>
+                                    <li><span>Medicine Category:</span> {{ items[2] }}</li>
+                                    <li><span>Medicine Type:</span> {{ items[4] }}</li>
+                                    <li><span>Availability:</span> <span class="check-stock">{{ items[6] }} Sheets Available</span></li>
+                                </ul>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <h2>Rs. {{ '%0.2f'| format(items[3]|float) }}</h2>
+                                    </li>
+                                    <li>GST Tax(20%): Rs. {{ '%0.2f'| format(items[3]*0.2|float) }}</li>
+                                </ul>
+                                <div id="product">
+                                    <form action="{{ url_for('item') }}" method="POST">
+                                    <div class="form-group">
+                                        <label for="input-quantity" class="control-label">Qty</label>
+                                        <input type="number" class="form-control" id="input-quantity" size="2" value="1" name="quantity">
+                                        <input type="hidden" name="med_id" value="{{ items[7] }}">
+                                        <input type="hidden" name="med_role" value="{{ items[4] }}" />
+                                        <br>
+                                        <button class="btn btn-primary btn-lg btn-block reg_button" value="add" type="submit" >
+                                        Buy Now!
+                                        </button>
+                                    </div>
+                                </form>
+                                </div>
+                                <!-- <div class="rating">
+                                    <p>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                        <a  href="">0 reviews</a> / <a  href="">Write a revie</a></p>
+                                    <hr>
+
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#tab-description" aria-expanded="false">Description</a></li>
+                                    <!-- <li class="active"><a data-toggle="tab" href="#tab-review" aria-expanded="true">Reviews (0)</a></li> -->
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="tab-description" class="tab-pane active">
+                                        <div class="row ">
+                                            <p>This medicine {{ items[0] }} contains all necessary chemicals used in treatment of {{ items[2] }} purpose.This medicine is manufactured by brand {{ items[1] }}. It is {{ items[4] }} type of medicine.You can also search for another type and we would highly recommend you to buy generic medicine because it is cheaper and has same contents as of local type of medicine. Expiry date of this medicine is {{ items[8] }}.</p>
+                                        </div>
+                                    </div>
+                                    <!-- <div id="tab-review" class="tab-pane active">
+                                        <form id="form-review" class="form-horizontal">
+
+                                            <h2>Write a review</h2>
+                                            <div class="form-group required">
+                                                <div class="col-sm-12">
+                                                    <label for="input-name" class="control-label">Your Name</label>
+                                                    <input type="text" class="form-control" id="input-name" value="" name="name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group required">
+                                                <div class="col-sm-12">
+                                                    <label for="input-review" class="control-label">Your Review</label>
+                                                    <textarea class="form-control" id="input-review" rows="5" name="text"></textarea>
+                                                    <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group required">
+                                                <div class="col-sm-12">
+                                                    <label class="control-label">Rating</label>
+                                                    &nbsp;&nbsp;&nbsp; Bad&nbsp;
+                                                    <input type="radio" value="1" name="rating">
+                                                    &nbsp;
+                                                    <input type="radio" value="2" name="rating">
+                                                    &nbsp;
+                                                    <input type="radio" value="3" name="rating">
+                                                    &nbsp;
+                                                    <input type="radio" value="4" name="rating">
+                                                    &nbsp;
+                                                    <input type="radio" value="5" name="rating">
+                                                    &nbsp;Good</div>
+                                            </div>
+                                            <div class="buttons clearfix">
+                                                <div class="pull-right">
+                                                    <button class="btn btn-primary reg_button"  id="button-review" type="button">
+                                                        <i class="fa fa-caret-right"></i>&nbsp;
+                                                        Continue                                       
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rel-product">
+                            <div class="infoBoxHeading">
+                                <a>Related Product</a>
+                            </div>
+                            <div class="row product-layout_width">
+                                {% for item in rel %}
+                                <div class="product-layout col-md-4  col-sm-6 col-xs-12">
+                                    <div class="product-thumb-height">
+                                        <div class="product-thumb transition">
+                                            <ul>
+
+                                                <li class="li_product_image">
+                                                    <div class="image">
+                                                        <a href="{{ url_for('singleproduct', pid=item[5], rol=item[4]) }}">
+                                                            <img src="/static/images/d1.jpg"  class="img-responsive" width="200" height="200" />		
+                                                        </a>
+
+                                                    </div>
+                                                </li>
+                                                <li class="li_product_title">
+                                                            <div class="product_title">
+                                                                <H4><a href="{{ url_for('singleproduct', pid=item[5], rol=item[4]) }}">{{ item[0] }}</a></H4>
+                                                            </div></li>
+                                                <li class="li_product_price">
+                                                    <span class="old_price1"></span>
+                                                    <span class="new_price1">Rs. {{ item[3] }}</span>
+                                                    <span class="saving1"></span><li>
+                                                <li class="li_product_desc">
+                                                    <div class="caption">
+                                                        <p>
+                                                            Brand: {{ item[1] }}
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                 <form action="{{ url_for('item') }}" method="POST">
+                                                        <input type="hidden" name="med_id" value="{{ item[5] }}">
+                                                        <input type="hidden" name="quantity" value="1" />
+                                                        <input type="hidden" name="med_role" value="{{ item[4] }}" />    
+                                                        <li class="li_product_buy_button">
+                                                        <button class="btn btn-default" value="add" type="submit" >
+                                                            Buy Now!
+                                                        </button>
+                                                    <div class="pull-right">
+                                                                <form action="{{ url_for('favourites') }}" method="post">
+                                                                <input type="hidden" name="med_id" value="{{ item[5] }}">
+                                                                <input type="hidden" name="med_role" value="{{ item[4] }}" />
+                                                                <button  type="submit" id="demo" onclick="myFunction()" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                                <script>
+                                                                function myFunction() {
+                                                                  document.getElementById("demo").style.color = "cyan";
+                                                                }
+                                                                </script>
+                                                            </form>
+                                                                <!-- <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button> -->
+                                                            </div>
+                                                </li>
+                                                </form>
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                                <!-- <div class="product-layout col-md-4  col-sm-6 col-xs-12">
+                                    <div class="product-thumb-height">
+                                        <div class="product-thumb transition">
+                                            <ul>
+
+                                                <li class="li_product_image">
+                                                    <div class="image">
+                                                        <a href="single-product.html">
+                                                            <img src="/static/images/d15.jpg"  class="img-responsive" width="200" height="200" />		
+                                                        </a>
+
+                                                    </div>
+                                                </li>
+                                                <li class="li_product_price">
+                                                    <span class="old_price1"></span>
+                                                    <span class="new_price1">€159.00</span>
+                                                    <span class="saving1"></span><li>
+                                                <li class="li_product_desc">
+                                                    <div class="caption">
+                                                        <p>
+                                                            Lorem Ipsum is simply dummy text of the printing
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li class="li_product_buy_button">
+                                                    <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                        Buy Now!
+                                                    </a>
+                                                    <div class="pull-right">
+                                                        <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                        <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="product-layout col-md-4  col-sm-6 col-xs-12">
+                                    <div class="product-thumb-height">
+                                        <div class="product-thumb transition">
+                                            <ul>
+
+                                                <li class="li_product_image">
+                                                    <div class="image">
+                                                        <a href="single-product.html">
+                                                            <img src="/static/images/d1.jpg"  class="img-responsive" width="200" height="200" />		
+                                                        </a>
+
+                                                    </div>
+                                                </li>
+                                                <li class="li_product_price">
+                                                    <span class="old_price1"></span>
+                                                    <span class="new_price1">€134.00</span>
+                                                    <span class="saving1"></span><li>
+                                                <li class="li_product_desc">
+                                                    <div class="caption">
+                                                        <p>
+                                                            Lorem Ipsum is simply dummy text of the printing
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li class="li_product_buy_button">
+                                                    <a class="btn btn-default" id="but" href="cart.html" role="button" >
+                                                        Buy Now!
+                                                    </a>
+                                                    <div class="pull-right">
+                                                        <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
+                                                        <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="footer1">
+            <div class="container-fluid footer-background">
+                <div class="row">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-3 col-xs-12 txt-center">
+                                <a href="home.html">
+                                    <span class="logo-text">DRUGSTORE</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <a style="display: none" href="javascript:void(0);" class="scrollTop back-to-top" id="back-to-top">
+            <i class="fa fa-chevron-up"></i>
+        </a>
+        <script>
+            $("document").ready(function () {
+
+                $(".galleryimg").on("click", function () {
+                    var src = $(this).attr('src');
+                    console.log(src)
+                    $(".changeimg").attr('src', src);
+                });
+            });
+        </script>
+    </body>
+</html> 

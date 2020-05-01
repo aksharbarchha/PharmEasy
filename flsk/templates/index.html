@@ -19,19 +19,23 @@
   <link href="/static/css/style.css" rel="stylesheet">
   <link href="/static/color/default.css" rel="stylesheet">
 
-  <!-- =======================================================
-    Theme Name: Squadfree
-    Theme URL: https://bootstrapmade.com/squadfree-free-bootstrap-template-creative/
-    Author: BootstrapMade
-    Author URL: https://bootstrapmade.com
-  ======================================================= -->
+ 
 
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
-  {% for category, message in get_flashed_messages(with_categories=true) %}
-    <p class="{{ category }}">{{ message }}</p>
-  {% endfor %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                      {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} text-center">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                          </button>
+                          <strong>{{ message }}</strong>
+                        </div>
+                      {% endfor %}
+                    {% endif %}
+            {% endwith %}
+                  {% block content %}{% endblock %}
   <!-- Preloader -->
   <div id="preloader">
     <div id="load"></div>
@@ -54,7 +58,6 @@
           <li><a href="#about">About</a></li>
           <li><a href="{{ url_for('login') }}">Login</a></li>
           <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
-          <li><a href="#service">Reviews</a></li>
           <li><a href="#contact">Feedback</a></li>
         </ul>
       </div>
@@ -72,7 +75,7 @@
     </div>
     <div class="page-scroll" >
       <img src="{{ url_for('static', filename='bg1.png') }}" alt="">
-      <a href="#service" class="btn btn-circle">
+      <a href="#about" class="btn btn-circle">
 				<i class="fa fa-angle-double-down animated"></i>
 			</a>
     </div>
@@ -103,143 +106,18 @@
           <hr class="marginbot-50">
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-3">
-          <div class="wow bounceInUp" data-wow-delay="0.2s">
-            <div class="team boxed-grey">
-              <div class="inner">
-                <h5>Anna Hanaceck</h5>
-                <p class="subtitle">Pixel Crafter</p>
-                <div class="avatar"><img src="/static/img/team/1.jpg" alt="" class="img-responsive img-circle" /></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="wow bounceInUp" data-wow-delay="0.5s">
-            <div class="team boxed-grey">
-              <div class="inner">
-                <h5>Maura Daniels</h5>
-                <p class="subtitle">Ruby on Rails</p>
-                <div class="avatar"><img src="img/team/2.jpg" alt="" class="img-responsive img-circle" /></div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="wow bounceInUp" data-wow-delay="0.8s">
-            <div class="team boxed-grey">
-              <div class="inner">
-                <h5>Jack Briane</h5>
-                <p class="subtitle">jQuery Ninja</p>
-                <div class="avatar"><img src="img/team/3.jpg" alt="" class="img-responsive img-circle" /></div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="wow bounceInUp" data-wow-delay="1s">
-            <div class="team boxed-grey">
-              <div class="inner">
-                <h5>Tom Petterson</h5>
-                <p class="subtitle">Typographer</p>
-                <div class="avatar"><img src="img/team/4.jpg" alt="" class="img-responsive img-circle" /></div>
-
-              </div>
-            </div>
-          </div>
-        </div>
+      <H4><p>KJSCE Pharmacy is a supplier of medicine which tries to supply medicine to the local public by 
+      cutting the middle man.</p></H4>
+      <H4><p>All customers and pharmacy owwers can buy medicine from our website .The medicines will be delivered
+      at your home.</p></H4>
+      <H4><p>Also one can buy generic medicines from our website at a cheaper rate than local medicines. </p></H4>
+      <H4><p>Generic medicines are the medicines having the same content as of the local but are around 50% to 70% 
+      cheaper because manufacturing company is not that popular.</p></H4>
+      <H4><p>So We always encourage our customers to buy generic medicine as it is clear benefit to them.</p></H4>
       </div>
-    </div>
   </section>
   <!-- /Section: about -->
-
-
-  <!-- Section: services -->
-  <section id="service" class="home-section text-center bg-gray">
-
-    <div class="heading-about">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2">
-            <div class="wow bounceInDown" data-wow-delay="0.4s">
-              <div class="section-heading">
-                <h2>Our Services</h2>
-                <i class="fa fa-2x fa-angle-down"></i>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-2 col-lg-offset-5">
-          <hr class="marginbot-50">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          <div class="wow fadeInLeft" data-wow-delay="0.2s">
-            <div class="service-box">
-              <div class="service-icon">
-                <img src="/static/img/icons/service-icon-1.png" alt="" />
-              </div>
-              <div class="service-desc">
-                <h5>Print</h5>
-                <p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="wow fadeInUp" data-wow-delay="0.2s">
-            <div class="service-box">
-              <div class="service-icon">
-                <img src="/static/img/icons/service-icon-2.png" alt="" />
-              </div>
-              <div class="service-desc">
-                <h5>Web Design</h5>
-                <p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="wow fadeInUp" data-wow-delay="0.2s">
-            <div class="service-box">
-              <div class="service-icon">
-                <img src="/static/img/icons/service-icon-3.png" alt="" />
-              </div>
-              <div class="service-desc">
-                <h5>Photography</h5>
-                <p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="wow fadeInRight" data-wow-delay="0.2s">
-            <div class="service-box">
-              <div class="service-icon">
-                <img src="/static/img/icons/service-icon-4.png" alt="" />
-              </div>
-              <div class="service-desc">
-                <h5>Cloud System</h5>
-                <p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- /Section: services -->
-
-
+  
 
 
   <!-- Section: contact -->
@@ -271,7 +149,7 @@
           <div class="boxed-grey">
             <div id="sendmessage">Your message has been sent. Thank you!</div>
             <div id="errormessage"></div>
-            <form id="contact-form" action="" method="post" role="form" class="contactForm">
+            <form action="{{ url_for('demo') }}" method='POST'>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -304,6 +182,7 @@
                   </div>
                 </div>
                 <div class="col-md-12">
+                  
                   <button type="submit" class="btn btn-skin pull-right" id="btnContactUs">
                             Send Message</button>
                 </div>
@@ -317,17 +196,17 @@
             <h5>Main Office</h5>
 
             <address>
-				  <strong>Squas Design, Inc.</strong><br>
-				  Tower 795 Folsom Ave, Beautiful Suite 600<br>
-				  San Francisco, CA 94107<br>
-				  <abbr title="Phone">P:</abbr> (123) 456-7890
+				  <strong>Computer, Inc.</strong><br>
+				  Vidyanagar, Vidya Vihar East, Ghatkopar East,<br>
+          Mumbai, Maharashtra 400077 <br>
+				  <abbr title="Phone">P:</abbr> +91-9876543210
 				</address>
 
             <address>
 				  <strong>Email</strong><br>
-				  <a href="mailto:#">email.name@example.com</a>
+				  <a href="mailto:#">kjsce.pharmacy@somaiya.edu</a>
 				</address>
-            <address>
+            <!-- <address>
 				  <strong>We're on social networks</strong><br>
                        	<ul class="company-social">
                             <li class="social-facebook"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
@@ -336,7 +215,7 @@
                             <li class="social-google"><a href="#" target="_blank"><i class="fa fa-google-plus"></i></a></li>
                         </ul>
 				</address>
-
+ -->
           </div>
         </div>
       </div>

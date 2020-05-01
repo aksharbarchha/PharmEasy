@@ -1,16 +1,16 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="icon" href="/static/images/favicon.png"/>
-        <title>KJSCE Pharmacy</title>
+        <title>KJSCE MediStore</title>
         <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css"/>
-        <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css"/> 
         <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css"/>
-        <link rel="stylesheet" href="/static/css/owl-carousel.css"/>
         <script src="/static/js/jquery.min.js"></script>
-        <script src="/static/js/owl-carousel.js"></script>
         <script src="/static/js/bootstrap.min.js"></script>
         <script src="/static/js/custom.js"></script>
     </head>
@@ -18,13 +18,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-sm-4 col-xs-4" id="logo" >
-                    <a href="{{ url_for('mhome') }}" class="logo-text">
+                    <a href="home.html" class="logo-text">
                         KJSCE<span style="color:#39BAF0; font-size:40px">Pharmacy</span>
                     </a>
                 </div>
                 <div class="col-md-5 col-sm-12 col-xs-12" style="display:none " id="navbar_hide" >
                     <nav  role="navigation" class="navbar navbar-inverse">
-                        <a href="{{ url_for('mhome') }}" style="float: left" class="logo-text">
+                        <a href="home.html" style="float: left" class="logo-text">
                             Medi<span style="color:#39BAF0; font-size:40px">STORE</span>
                         </a>
                         <div id="nav">
@@ -45,8 +45,8 @@
                             <div class="text">
                                 <div class="img">
                                     <a href="{{ url_for('cart') }}"> <img class="img-responsive" src="/static/images/cart.png" alt="" title="" width="26" height="27" /></a>
-                                </div><span>Your cart:</span><span class="cart_total">Rs. {{ '%0.2f'| format(subtotal|float) }}</span><span class="cart_items">({{ len_items }} items)</span>
-                                <div class="col-md-6 col-xs-6 wd_auto">
+                                    </div><span>Your cart:</span><span class="cart_total">Rs. {{ '%0.2f'| format(subtotal|float) }}</span><span class="cart_items">({{ items_len }} items)</span>
+                                   <div class="col-md-6 col-xs-6 wd_auto">
                                     <div class="left">
                                         <div class="login">
                                             <a class="btn btn-default reg_button" href="{{ url_for('cart') }}">Cart</a> 
@@ -64,22 +64,9 @@
                                             
                                     </div>
                                 </div> 
-                                <!-- <div class="dropdown-bn wd-33 col-md-6 remove_PL col-xs-6">
-                                        <div class=" pl-0 col-md-6 col-xs-6">
-
-                                            <div class="dropdown btn-group">
-                                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Hi {{ session['person'] }} 
-                                                    <span class="caret"></span></button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="{{ url_for('updatepassword') }}">Update Password</a></li>
-                                                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
-
-                                                </ul>
-                                            </div>
-<--                                         </div>
- --><!--                                 <H5><a class="btn btn-default" href="{{ url_for('logout') }}">Logout</a></H5>
- -->                            </div> 
-                         </div>
+                                </div>
+                            </div>
+                        </div>
                         <div id="bottom_right">
                             <div class="row">
 
@@ -212,6 +199,7 @@
                                         </div>
                                     </div>
 
+
                                 </div>
 
                             </div>
@@ -227,118 +215,64 @@
                             $('#accordion').on('shown.bs.collapse', toggleChevron);
                         </script>
 
-                    </div>
-                    <div class="col-md-9 col-sm-8 col-xs-12 right_sidebar1">
-                        <div id="right_part">
-                            <div class="contentContainer">
-                              <div class="contextText">
-                                <div class="breadcrumbs">
-                                  <a href="{{ url_for('mhome') }}"
-                              class ="headerNavigation"><i class ="fa fa-home"></i></a>
-                              </div>
-
-
-                              </div>
-
-                                <!----slidder start-!-->
-                                <div class="contentText">
-                                    <div class="infoBoxHeading">Today Bestsellers</div>
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12 col-xs-12"  >
-                                            <!--                                        <div class="bg_best">-->
-                                            <div class="bg_best">
-                                                <div class="owl-carousel">
-                                                    {% for item  in categories %}
-                                                    <div class="item">
-                                                        <span>
-                                                            <a href="{{ url_for('singleproduct', pid= item[6] , rol= item[4]) }}">
-                                                                <img class="carasoul_image" src="/static/images/img13.jpg">
-                                                            </a><br></span>
-                                                            <ul><li class="product_title">
-                                                            <div class="product_title" >
-                                                                <H4><font color="cyan"><a href="{{ url_for('singleproduct', pid=item[6] , rol=item[4]) }}">{{ item[0] }}</a></H4></font>
-                                                            </div></li></ul>
-                                                        <form action="{{ url_for('item') }}" method="POST">
-                                                        <input type="hidden" name="med_id" value="{{ item[6] }}">
-                                                        <input type="hidden" name="quantity" value="1" />
-                                                        <input type="hidden" name="med_role" value="{{ item[4] }}" />    
-                                                        <button class="btn btn-default" value="add" type="submit" >
-                                                            Buy Now!
-                                                        </button>
-                                                        </form>
-                                                    </div>
-                                                    {% endfor %}
-                                                    <!--  -->
-                                                </div>
-
-                                                <script>
-                                                    $(document).ready(function () {
-                                                        $('.owl-carousel').owlCarousel({
-                                                            loop: true,
-                                                            margin: 10,
-                                                            responsiveClass: true,
-                                                            responsive: {
-                                                                0: {
-                                                                    items: 2,
-                                                                    nav: true
-                                                                },
-                                                                600: {
-                                                                    items: 3,
-                                                                    nav: false
-                                                                },
-                                                                1000: {
-                                                                    items: 5,
-                                                                    nav: true,
-                                                                    loop: false,
-                                                                    margin: 20
-                                                                }
-
-                                                            }
-                                                        })
-                                                    })
-                                                </script>
-                                            </div>
-                                            <!--                                    </div>-->
-                                        </div>
+                    </div> 
+                    <div class="col-md-9 col-sm-8 col-xs-12" id="content">            
+                        <div class="contentText">
+                            <div class="breadcrumbs">
+                                <a href="home.html"><i class="fa fa-home"></i></a>
+                                <a href="#">Products</a>
+                            </div>
+                            <h1>Results</h1>
+                            <div class="row">
+                                <div class="col-sm-2 col-xs-6"><img class="img-thumbnail"  src="/static/images/img15.jpg"></div>
+                                <div class="col-sm-10 col-xs-6"><p>
+                                        This page contains all the medicine related to your search</p>
+                                </div>
+                            </div>
+                            <hr>
+                            
+                                <!-- <div class="row">
+                                <div class="col-md-4">
+                                    <div class="btn-group hidden-xs">
+                                        <a class="btn btn-default" id="list-view" href="product-list.html"><i class="fa fa-th-list"></i></a>
+                                        <a class="btn btn-default" id="grid-view"><i class="fa fa-th"></i></a>
                                     </div>
                                 </div>
-                                <!----slidder End-!-->
-                                <!----content_1--!-->
-                                <div class="contentText Static">
-                                    <h1>What is KJSCE Pharmacy</h1>
-                                    <H4><p>KJSCE Pharmacy is a supplier of medicine which tries to supply medicine to the local public by cutting the middle man.</p></H4>
-                                    <H4><p>All Pharmacy stores and home owners can order any medicine. Medicine is delivered door-to-door by our delivery agents.</p></H4>
+                                <div class="col-md-2 text-right txt-left">
+                                    <label for="input-sort" class="control-label" style="margin-top: 7px">Sort By:</label>
                                 </div>
-                                <!----content_1 End--!-->
+                                <div class="col-md-3 text-right">
+                                    <select  class="form-control" id="input-sort">
+                                        <option selected="selected">Name (A - Z)</option>
+                                        <option>Name (Z - A)</option>
+                                    </select>
+                                </div>
+                                
+                            </div> -->
 
-
-                                <!----content_2 For New Products--!-->
-                                <div class="contentText">
-                                    <h1>New Products For March</h1>
-                                    <div class="row margin-top product-layout_width">
-                                        {% for item in categories1 %}
+                            <div class="row margin-top product-layout_width">
+                                {% for item in items %}
                                         <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
                                             <div class="product-thumb-height">
                                                 <div class="product-thumb transition">
                                                     <ul>
                                                         <li class="li_product_title">
                                                             <div class="product_title">
-                                                                <H4><a href="{{ url_for('singleproduct', pid=item[6] , rol=item[4]) }}">{{ item[0] }}</a></H4>
+                                                                <H4><a href="{{ url_for('singleproduct', pid=item[6], rol=item[4]) }}">{{ item[0] }}</a></H4>
                                                             </div></li>
                                                         <li class="li_product_image">
                                                             <div class="image">
-                                                                <a href="{{ url_for('singleproduct', pid=item[6] , rol= item[4] ) }}">
+                                                                <a href="{{ url_for('singleproduct', pid=item[6], rol=item[4]) }}">
                                                                     <img src="/static/images/d1.jpg" class="img-responsive" width="200" height="200" />
                                                                 </a>
 
                                                             </div>
                                                         </li>
                                                         <br><br>
-                                                        
                                                         <li class="li_product_price">
                                                             <span class="old_price1"></span>
                                                             <H5><b><span class="new_price1">Price: Rs.{{ item[3] }}</span></b></H5>
-                                                            <span class="saving1"></span></li>
+                                                            <!-- <span class="saving1"></span> --></li>
                                                         <li>
                                                             <p>Brand: {{ item[1] }}</p>
                                                         </li>
@@ -346,20 +280,22 @@
                                                             <p>Purpose: {{ item[2] }}</p>
                                                         </li>
                                                         <li class="li_product_desc">
-                                                            <div>
-                                                                <p>Type: {{ item[4] }}</p>
+                                                            <div class="caption">
+                                                                <p>
+                                                                   Type: {{ item[4] }} 
+                                                                </p>
                                                             </div>
                                                         </li>
                                                         
                                                         <li class="li_product_buy_button">
-                                                            <form action="{{ url_for('item') }}" method="POST">
+                                                          <form action="{{ url_for('item') }}" method="POST">
                                                             <input type="hidden" name="med_id" value="{{ item[6] }}">
                                                             <input type="hidden" name="quantity" value="1" />
                                                             <input type="hidden" name="med_role" value="{{ item[4] }}" />
                                                             <button class="btn btn-default" value="add" type="submit">
                                                                 Buy Now!
                                                             </button>
-                                                        </form>
+                                                          </form>
                                                             <div class="pull-right">
                                                                 <form action="{{ url_for('favourites') }}" method="post">
                                                                 <input type="hidden" name="med_id" value="{{ item[6] }}">
@@ -370,89 +306,18 @@
                                                                   document.getElementById("demo").style.color = "cyan";
                                                                 }
                                                                 </script>
-                                                                </form>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-
-                                        
-                                    </div>
-                                </div>
-                                <!----content_2 End--!-->
-
-                                <!----content_3--!-->
-                                <div class="contentText">
-                                    <h1>Specials</h1>
-                                    <div class="row margin-top product-layout_width">
-                                        {% for item in categories2 %}
-                                        <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
-                                            <div class="product-thumb-height">
-                                                <div class="product-thumb transition">
-                                                    <ul>
-                                                        <li class="li_product_title">
-                                                            <div class="product_title">
-                                                                <H4><a href="{{ url_for('singleproduct', pid=item[6] , rol=item[4] ) }}">{{ item[0] }}</a></H4>
-                                                            </div></li>
-                                                        <li class="li_product_image">
-                                                            <div class="image">
-                                                                <a href="{{ url_for('singleproduct', pid=item[6] , rol=item[4]) }}">
-                                                                    <img src="/static/images/d23.jpg" class="img-responsive" width="200" height="200"/>
-                                                                </a>
-
-                                                            </div>
-                                                        </li>
-                                                        <br><br>
-                                                        <li class="li_product_price">
-                                                            <span class="old_price1"></span>
-                                                            <H5><b><span class="new_price1">Price: Rs.{{ item[3] }}</span></b></H5>
-                                                            <span class="saving1"></span></li>
-                                                        <li>
-                                                            <p>Brand:{{ item[1] }}</p>
-                                                        </li>
-                                                        <li>
-                                                            <p>Purpose: {{ item[2] }}</p>
-                                                        </li>
-                                                        <li>
-                                                            <p>Type: {{ item[4] }}</p>
-                                                        </li>
-                                                        <li class="li_product_buy_button">
-                                                            <form action="{{ url_for('item') }}" method="POST">
-                                                            <input type="hidden" name="med_id" value="{{ item[6] }}">
-                                                            <input type="hidden" name="quantity" value="1" />
-                                                            <input type="hidden" name="med_role" value="{{ item[4] }}" />
-                                                            <button class="btn btn-default" value="add" type="submit" >
-                                                                Buy Now!
-                                                            </button>
-                                                            <div class="pull-right">
-                                                                <form action="{{ url_for('favourites') }}" method="post">
-                                                                <input type="hidden" name="med_id" value="{{ item[6] }}">
-                                                                <input type="hidden" name="med_role" value="{{ item[4] }}" />
-                                                                <button  type="submit" id="demo" onclick="myFunction()" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
-                                                                <script>
-                                                                function myFunction() {
-                                                                  document.getElementById("demo").style.color = "cyan";
-                                                                }
-                                                                </script>
-                                                            </form>
+                                                               </form>
                                                                 <!-- <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button> -->
                                                             </div>
-                                                        </form>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                         {% endfor %}
-                                        
-                                    </div>
-                                </div>
-                                <!----content_3 End--!-->
+                                
                             </div>
-
+                            
                         </div>
 
                     </div>
@@ -461,15 +326,13 @@
             </div>
         </div>
 
-
-
         <div id="footer1">
             <div class="container-fluid footer-background">
                 <div class="row">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-2 col-sm-3 col-xs-12 txt-center">
-                                <a href="{{ url_for('mhome') }}">
+                                <a href="home.html">
                                     <span class="logo-text">DRUGSTORE</span>
                                 </a>
                             </div>
@@ -483,4 +346,4 @@
             <i class="fa fa-chevron-up"></i>
         </a>
     </body>
-</html>
+</html> 

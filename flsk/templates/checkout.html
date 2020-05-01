@@ -3,19 +3,104 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="icon" href="images/favicon.png"/>
-        <title>MediStore</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css"/>
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-        <link rel="stylesheet" type="text/css" href="css/style.css"/>
-        <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/custom.js"></script>
+        <link rel="icon" href="/static/images/favicon.png"/>
+        <title> KJSCE MediStore</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css"/>
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="/static/js/custom.js"></script>
     </head>
     <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-4" id="logo" >
+                    <a href="{{ url_for('mhome') }}" class="logo-text">
+                        KJSCE<span style="color:#39BAF0; font-size:40px">Pharmacy</span>
+                    </a>
+                </div>
+                <div class="col-md-5 col-sm-12 col-xs-12" style="display:none " id="navbar_hide" >
+                    <nav  role="navigation" class="navbar navbar-inverse">
+                        <a href="{{ url_for('mhome') }}" style="float: left" class="logo-text">
+                            Medi<span style="color:#39BAF0; font-size:40px">STORE</span>
+                        </a>
+                        <div id="nav">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="background: #8EBE08; border: none; margin-right: 0">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
 
-        <div class="container" >
+                        </div>
+                    </nav>
+                </div>
+                <div class="col-md-4 col-md-offset-4 col-sm-offset-2  col-sm-6 col-xs-12" >
+                    <div id="top_right">
+                        <div id="cart">
+                            <div class="text">
+                                <div class="img">
+                                    <a href="{{ url_for('cart') }}"> <img class="img-responsive" src="/static/images/cart.png" alt="" title="" width="26" height="27" /></a>
+                                </div><span>Your cart:</span><span class="cart_total">Rs. {{ '%0.2f'| format(subtotal|float) }}</span><span class="cart_items">({{ len_items }} items)</span>
+                                <div class="col-md-6 col-xs-6 wd_auto">
+                                    <div class="left">
+                                        <div class="login">
+                                            <a class="btn btn-default reg_button" href="{{ url_for('cart') }}">Cart</a> 
+                                            <a class="btn btn-default reg_button" href="{{ url_for('checkout') }}">Checkout</a>
+                                            <div class="dropdown btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Hi {{ session['person'] }} 
+                                                    <span class="caret"></span></button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="{{ url_for('updatepassword') }}">Update Password</a></li>
+                                                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+
+                                                </ul>
+                                            </div>
+                                        </div>      
+                                            
+                                    </div>
+                                </div> 
+                                <!-- <div class="dropdown-bn wd-33 col-md-6 remove_PL col-xs-6">
+                                        <div class=" pl-0 col-md-6 col-xs-6">
+
+                                            <div class="dropdown btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Hi {{ session['person'] }} 
+                                                    <span class="caret"></span></button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="{{ url_for('updatepassword') }}">Update Password</a></li>
+                                                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+
+                                                </ul>
+                                            </div>
+<--                                         </div>
+ --><!--                                 <H5><a class="btn btn-default" href="{{ url_for('logout') }}">Logout</a></H5>
+ -->                            </div> 
+                         </div>
+                        <div id="bottom_right">
+                            <div class="row">
+
+                                <div class="dropdown-bn wd-33 col-md-6 remove_PL col-xs-6">
+                                    <div class="row">
+                                        <div class=" pl-0 col-md-6 col-xs-6">
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- <div class="container" >
             <div class="row" id="search_manu" style="margin-top: 10px">
                 <div class="col-md-6 col-xs-12">
                     <form  name="quick_find">
@@ -29,48 +114,39 @@
                         </div>
                     </form>
                 </div>
-
-                <div class="col-md-6 col-xs-12">
-
-                    <form  name="manufacturers">
-                        <div class="form-group">
-                            <div class="">
-                                <select  style="font-size: 14px; background: #EAEAEA; border: none;" name="manufacturers_id"  size="1" class="input-lg form-control arrow-hide date_class">
-                                    <option value="" selected="selected">Please Select manufacturers</option>
-                                    <option>lorem</option>
-                                    <option>lorem</option>
-                                    <option>lorem</option>
-                                    <option>lorem</option>
-                                </select>
-                                <!--                                <span class="input-group-addon" style="border-radius: 0px 20px 20px 0; padding: 0 15px">
-                                                                    <a href="#" style="color:white" id="testt">
-                                                                        <span class="glyphicon glyphicon-chevron-down"></span>
-                                                                    </a>
-                                                                </span>-->
-                            </div>
-                        </div>
-                    </form>
-                </div>
             </div>
-        </div>
+        </div> -->
 
 
         <div class="main-content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                      {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} text-center">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                          </button>
+                          <strong>{{ message }}</strong>
+                        </div>
+                      {% endfor %}
+                    {% endif %}
+            {% endwith %}
+                  {% block content %}{% endblock %}
             <div class="container checkout">
                 <div class="breadcrumbs">
-                    <a href="home.html"><i class="fa fa-home"></i></a>
-                    <a href="checkout.html">Checkout</a>
+                    <a href="{{ url_for('mhome') }}"><i class="fa fa-home"></i></a>
+                    <a href="{{ url_for('checkout') }}">Checkout</a>
                 </div>
                 <h2 class="text-center text-uppercase text-bold">checkout</h2>
                 <hr class="small-line">
                 <div id="accordion" class="panel-group margin-top">
-                    <div class="panel panel-default">
+                    <!-- <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title"><a class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#collapse-checkout-option">Step 1: Checkout Options <i class="fa fa-caret-down"></i></a></h4>
                         </div>
                         <div id="collapse-checkout-option" class="panel-collapse collapse" aria-expanded="false">
-                            <div class="panel-body"><div class="row">
-                                    <div class="col-sm-6">
+                            <div class="panel-body"><div class="row">-->
+                                <form action="{{ url_for('checkout') }}" method="POST">    
+                                <!--<div class="col-sm-6">
                                         <h2>New Customer</h2>
                                         <p>Checkout Options:</p>
                                         <div class="radio">
@@ -103,10 +179,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4 class="panel-title"><a class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#collapse-payment-address">Step 2: Account &amp; Billing Details <i class="fa fa-caret-down"></i></a></h4>
+                            <h4 class="panel-title"><a class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#collapse-payment-address">Step 1: Account &amp; Billing Details <i class="fa fa-caret-down"></i></a></h4>
                         </div>
                         <div class="panel-collapse collapse in" id="collapse-payment-address" style="height: auto;">
                             <div class="panel-body"><div class="row">
@@ -135,14 +211,14 @@
                                             </div>
                                             <div class="form-group required">
                                                 <label for="input-payment-telephone" class="control-label">Telephone</label>
-                                                <input type="text" class="form-control" id="input-payment-telephone" placeholder="Telephone" value="" name="telephone">
+                                                <input type="number" class="form-control" id="input-payment-telephone" placeholder="Telephone" value="" name="telephone">
                                             </div>
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label for="input-payment-fax" class="control-label">Fax</label>
                                                 <input type="text" class="form-control" id="input-payment-fax" placeholder="Fax" value="" name="fax">
-                                            </div>
+                                            </div> -->
                                         </fieldset>
-                                        <fieldset>
+                                        <!-- <fieldset>
                                             <legend>Your Password</legend>
                                             <div class="form-group required">
                                                 <label for="input-payment-password" class="control-label">Password</label>
@@ -152,30 +228,30 @@
                                                 <label for="input-payment-confirm" class="control-label">Password Confirm</label>
                                                 <input type="password" class="form-control" id="input-payment-confirm" placeholder="Password Confirm" value="" name="confirm">
                                             </div>
-                                        </fieldset>
+                                        </fieldset> -->
                                     </div>
                                     <div class="col-sm-6">
                                         <fieldset id="address" class="required">
                                             <legend>Your Address</legend>
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label for="input-payment-company" class="control-label">Company</label>
                                                 <input type="text" class="form-control" id="input-payment-company" placeholder="Company" value="" name="company">
-                                            </div>
+                                            </div> -->
                                             <div class="form-group required">
-                                                <label for="input-payment-address-1" class="control-label">Address 1</label>
-                                                <input type="text" class="form-control" id="input-payment-address-1" placeholder="Address 1" value="" name="address_1">
+                                                <label for="input-payment-address" class="control-label">Address</label>
+                                                <input type="text" class="form-control" id="input-payment-address" placeholder="Address" value="" name="address">
                                             </div>
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label for="input-payment-address-2" class="control-label">Address 2</label>
                                                 <input type="text" class="form-control" id="input-payment-address-2" placeholder="Address 2" value="" name="address_2">
-                                            </div>
+                                            </div> -->
                                             <div class="form-group required">
                                                 <label for="input-payment-city" class="control-label">City</label>
                                                 <input type="text" class="form-control" id="input-payment-city" placeholder="City" value="" name="city">
                                             </div>
                                             <div class="form-group required">
                                                 <label for="input-payment-postcode" class="control-label">Post Code</label>
-                                                <input type="text" class="form-control" id="input-payment-postcode" placeholder="Post Code" value="" name="postcode">
+                                                <input type="number" class="form-control" id="input-payment-postcode" placeholder="Post Code" value="" name="postcode">
                                             </div>
                                             <div class="form-group required">
                                                 <label for="input-payment-country" class="control-label">Country</label>
@@ -188,6 +264,9 @@
                                                     <option value="5">Andorra</option>
                                                     <option value="6">Angola</option>
                                                     <option value="7">Anguilla</option>
+                                                    <option value="8">China</option>
+                                                    <option value="9">India</option>
+                                                    <option value="10">Japan</option>
 
                                                 </select>
                                             </div>
@@ -199,84 +278,120 @@
                                                     <option value="3516">Angus</option><option value="3517">Argyll and Bute</option>
                                                     <option value="3518">Bedfordshire</option><option value="3519">Berkshire</option>
                                                     <option value="3520">Blaenau Gwent</option>
-                                                    <option value="3521">Bridgend</option>
+                                                    <option value="3522">Bridgend</option>
+                                                    <option value="3523">Maharashtra</option>
+                                                    <option value="3524">Punjab</option>
+                                                    <option value="3525">Gujarat</option>
                                                 </select>
                                             </div>
                                         </fieldset>
                                     </div>
                                 </div>
-                                <div class="checkbox">
-                                    <label for="newsletter">
-                                        <input type="checkbox" id="newsletter" value="1" name="newsletter">
-                                        I wish to subscribe to the PrintStore online store newsletter.</label>
-                                </div>
-                                <div class="checkbox">
+                                <!-- <div class="checkbox">
                                     <label>
                                         <input type="checkbox" checked="checked" value="1" name="shipping_address">
                                         My delivery and billing addresses are the same.</label>
-                                </div>
+                                </div> -->
                                 <div class="buttons clearfix">
                                     <div class="pull-right">I have read and agree to the <a class="agree" href="#"><b>Privacy Policy</b></a> &nbsp;
-                                        <input type="checkbox" value="1" name="agree" style="vertical-align: text-bottom">
-                                        <input type="button" class="btn btn-primary" data-loading-text="Loading..." id="button-register" value="Continue">
+                                        <input type="checkbox" required value="1" name="agree" style="vertical-align: text-bottom">
+                                        <!-- <button type="submit" class="btn btn-primary" data-loading-text="Loading..." id="button-register" value="Continue"></button> -->
                                     </div>
+                                    <script>
+                                    document.getElementById("button-register").onclick = function() {myFunction()};                  
+                                    function myFunction() {
+                                      document.getElementById("collapse-payment-address").classList.toggle("collapse");
+                                      document.getElementById("collapse-payment-method").classList.toggle("collapse");
+
+                                    }
+                                    </script>
                                 </div>
 
                             </div>
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
+                    <!-- <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4 class="panel-title"><a class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#collapse-shipping-method">Step 3: Delivery Method <i class="fa fa-caret-down"></i></a></h4>
+                            <h4 class="panel-title"><a class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#collapse-shipping-method">Step 2: Delivery Method <i class="fa fa-caret-down"></i></a></h4>
                         </div>
                         <div id="collapse-shipping-method" class="panel-collapse collapse in" aria-expanded="true" style="">
-                            <div class="panel-body"><p>Please select the preferred shipping method to use on this order.</p>
+                            <div class="panel-body"><p>The order will be delivered at your home at the earliest.</p>
                                 <p><strong>Flat Rate</strong></p>
                                 <div class="radio">
                                     <label>
                                         <input type="radio" checked="checked" value="flat.flat" name="shipping_method">
-                                        Flat Shipping Rate - $8.00</label>
+                                        Flat Shipping Rate - Rs 60.00</label>
                                 </div>
-                                <p><strong>Add Comments About Your Order</strong></p>
-                                <p>
-                                    <textarea class="form-control" rows="8" name="comment"></textarea>
-                                </p>
+                                <div class="panel-body"><p>If you agree with the shipping rate please tick "I Agree" checkbox below.</p>
                                 <div class="buttons">
+                                    <div class="buttons clearfix">
+                                    <div class="pull-right">I agree to the <b>Shipping Rate</b> &nbsp;
+                                    </div>
+                                        <input type="checkbox" value="1" name="agree" required style="vertical-align: text-bottom">
                                     <div class="pull-right">
-                                        <input type="button" class="btn btn-primary"  id="button-shipping-method" value="Continue">
+                                        <button type="button" class="btn btn-primary"  id="button-shipping-method" value="Continue">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4 class="panel-title"><a class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#collapse-payment-method" aria-expanded="true">Step 4: Payment Method <i class="fa fa-caret-down"></i></a></h4>
+                            <h4 class="panel-title"><a class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#collapse-payment-method" aria-expanded="true">Step 2: Payment Method <i class="fa fa-caret-down"></i></a></h4>
                         </div>
                         <div id="collapse-payment-method" class="panel-collapse collapse in" aria-expanded="true" style="">
+                            <div class="panel-body"><p>The order will be delivered at your home at the earliest.</p>
+                                <p><strong>Flat Rate</strong></p>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" checked="checked" value="flat.flat" name="shipping_method">
+                                        Flat Shipping Rate - Rs 60.00</label>
+                                </div>
+                                <div class="panel-body"><p>If you agree with the shipping rate please tick "I Agree" checkbox below.</p>
+                                
                             <div class="panel-body"><p>Please select the preferred payment method to use on this order.</p>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" checked="checked" value="cod" name="payment_method">
-                                        Cash On Delivery      </label>
+                                        <input type="radio" required  value="cash_on_delivery" name="payment_method">  &nbsp;Cash On Delivery </label>
+                                        <br>
+                                    <label>
+                                        <input type="radio" value="credit/debit" name="payment_method">
+                                        &nbsp;Credit/Debit Card </label>
+                                        <br>
+                                    <label>
+                                        <input type="radio" value="net_banking" name="payment_method">
+                                        &nbsp;Net Banking     </label>
                                 </div>
-                                <p><strong>Add Comments About Your Order</strong></p>
+                                <!-- <p><strong>Add Comments About Your Order</strong></p>
                                 <p>
                                     <textarea class="form-control" rows="8" name="comment"></textarea>
-                                </p>
+                                </p> -->
+
                                 <div class="buttons">
-                                    <div class="pull-right">I have read and agree to the <a class="agree" href="#"><b>Terms &amp; Conditions</b></a>        <input type="checkbox" value="1" name="agree">
+                                    <div class="buttons clearfix">
+                                    <div class="pull-right">I agree to the <b>Shipping Rate</b> &nbsp;
+                                    
+                                        <input type="checkbox" required value="1" name="agree" style="vertical-align: text-bottom">
+                                        </div>
+                                    <!-- <div class="pull-right">I have read and agree to the <a class="agree" href="#"><b>Terms &amp; Conditions</b></a>        <input type="checkbox" required value="1" name="agree">
                                         &nbsp;
-                                        <input type="button" class="btn btn-primary"  id="button-payment-method" value="Continue">
-                                    </div>
+                                        <input type="button" class="btn btn-primary" data-loading-text="Loading..." id="button-payment-method" value="Continue">
+                                    </div> -->
+                                    <!-- <script>
+                                    document.getElementById("button-payment-method").onclick = function() {myFunction1()};                  
+                                    function myFunction1() {
+                                      document.getElementById("collapse-checkout-confirm").classList.toggle("collapse");
+                                    }
+                                    </script> -->
+                                </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4 class="panel-title"><a class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#collapse-checkout-confirm" aria-expanded="true">Step 5: Confirm Order <i class="fa fa-caret-down"></i></a></h4>
+                            <h4 class="panel-title"><a class="accordion-toggle" data-parent="#accordion" data-toggle="collapse" href="#collapse-checkout-confirm" aria-expanded="true">Step 3: Confirm Order <i class="fa fa-caret-down"></i></a></h4>
                         </div>
                         <div id="collapse-checkout-confirm" class="panel-collapse collapse in" aria-expanded="true" style="">
                             <div class="panel-body"><div class="table-responsive">
@@ -284,65 +399,73 @@
                                         <thead>
                                             <tr>
                                                 <td class="text-left">Product Name</td>
-                                                <td class="text-left">Model</td>
+                                                <td class="text-left">Brand</td>
+                                                <td class="text-left">Type</td>
+                                                <td class="text-left">Category</td>
+                                                <td class="text-left">Dosage_form</td>
                                                 <td class="text-right">Quantity</td>
                                                 <td class="text-right">Unit Price</td>
                                                 <td class="text-right">Total</td>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {% for item in items %}
                                             <tr>
-                                                <td class="text-left"><a href="#">demo product</a>
+                                                <td class="text-left"><a href="{{ url_for('singleproduct', pid=item[4], rol=item[6]) }}">{{ item[3] }}</a>
                                                 </td>
-                                                <td class="text-left">Product 6</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">$242.00</td>
-                                                <td class="text-right">$242.00</td>
+                                                <td class="text-left">{{ item[5] }}</td>
+                                                <td class="text-left">{{ item[7] }}</td>
+                                                <td class="text-left">{{ item[6] }}</td>
+                                                <td class="text-left">{{ item[8] }}</td>
+                                                <td class="text-right">{{ item[9] }}</td>
+                                                <td class="text-right">Rs. {{ item[1] }}</td>
+                                                <td class="text-right">Rs. {{ '%0.2f'| format(item[1]*item[9]|float) }}</td>
                                             </tr>
+                                            {% endfor %}
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td class="text-right" colspan="4"><strong>Sub-Total:</strong></td>
-                                                <td class="text-right">$200.00</td>
+                                                <td class="text-right" colspan="7"><strong>Sub-Total:</strong></td>
+                                                <td class="text-right">Rs {{ '%0.2f'| format(subtotal|float) }}</td>
                                             </tr>
                                             <tr>
-                                                <td class="text-right" colspan="4">Coupon Code:</td>
+                                                <td class="text-right" colspan="7">Coupon Code:</td>
                                                 <td class="text-right">$0</td>
                                             </tr>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td class="text-right" colspan="4">Gift Voucher:</td>
                                                 <td class="text-right">$0</td>
-                                            </tr>
+                                            </tr> -->
                                             <tr>
-                                                <td class="text-right" colspan="4">Flat Shipping Rate:</td>
-                                                <td class="text-right">$5.00</td>
+                                                <td class="text-right" colspan="7">Flat Shipping Rate:</td>
+                                                <td class="text-right">Rs 60.00</td>
                                             </tr>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td class="text-right" colspan="4">Eco Tax (-2.00):</td>
                                                 <td class="text-right">$4.00</td>
+                                            </tr> -->
+                                            <tr>
+                                                <td class="text-right" colspan="7">GST (20%):</td>
+                                                <td class="text-right">Rs. {{ '%0.2f'| format(subtotal*0.2|float) }}</td>
                                             </tr>
                                             <tr>
-                                                <td class="text-right" colspan="4">VAT (20%):</td>
-                                                <td class="text-right">$41.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right" colspan="4"><strong>Order Total:</strong></td>
-                                                <td class="text-right">$250.00</td>
+                                                <td class="text-right" colspan="7"><strong>Order Total:</strong></td>
+                                                <td class="text-right">Rs. {{ '%0.2f'| format((subtotal*1.2-60)|float) }}</td>
                                             </tr>
                                         </tfoot>
                                     </table>
                                 </div>
                                 <div class="buttons">
                                     <div class="pull-right">
-                                        <input type="button"  class="btn btn-primary" id="button-confirm" value="Confirm Order">
+                                        <button type="submit"  class="btn btn-primary" id="button-confirm" value="Confirm Order" name="Confirm Order">Confirm Order</button>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
+                </form>
                 </div>
-
 
 
             </div>
@@ -354,7 +477,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-2 col-sm-3 col-xs-12 txt-center">
-                                <a href="home.html">
+                                <a href="{{ url_for('mhome') }}">
                                     <span class="logo-text">DRUGSTORE</span>
                                 </a>
                             </div>
