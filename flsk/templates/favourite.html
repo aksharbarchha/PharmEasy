@@ -8,6 +8,7 @@
         <link rel="icon" href="/static/images/favicon.png"/>
         <title>KJSCE MediStore</title>
         <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
         <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css"/> 
         <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css"/>
         <script src="/static/js/jquery.min.js"></script>
@@ -294,20 +295,8 @@
                                                             <button class="btn btn-default" value="add" type="submit">
                                                                 Buy Now!
                                                             </button>
-                                                            <div class="pull-right">
-                                                                <form action="{{ url_for('favourites') }}" method="post">
-                                                                <input type="hidden" name="med_id" value="{{ item[6] }}">
-                                                                <input type="hidden" name="med_role" value="{{ item[4] }}" />
-                                                                <button  type="submit" id="demo" onclick="myFunction()" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button>
-                                                                <script>
-                                                                function myFunction() {
-                                                                  document.getElementById("demo").style.color = "cyan";
-                                                                }
-                                                                </script>
-                                                            </form>
-                                                                <!-- <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button> -->
-                                                            </div>
                                                         </form>
+                                                        
                                                         </li>
                                                     </ul>
                                                 </div>

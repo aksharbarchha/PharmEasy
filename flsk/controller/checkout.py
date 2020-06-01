@@ -14,7 +14,9 @@ connection=mysql.connector.connect(host="localhost", database='medicine', user="
 def normal_checkout():
 
     items, subtotal, items_len = cart_items()
-    return render_template("checkout.html", items=items, subtotal=subtotal, items_len=items_len)
+    normalc = session['cdis']
+    specialc = session['pdis']
+    return render_template("checkout.html", items=items, subtotal=subtotal, items_len=items_len, normalc=normalc, specialc=specialc)
 
 def checkout_details():
 
@@ -28,23 +30,26 @@ def checkout_details():
         cur.execute(query, params)
 
         items, subtotal, item_len = cart_items()
-
+        sum=0.00
+        for item in items:
+            sum=sum+round(item[1]*item[9]*1.2, 2)
+        sum=sum+60-session['cdis']-session['pdis']
         orders = []
         for item in items:
             orders.append((item[9], round(item[1]*item[9]*1.2, 2),
                            'Pending', request.form.get('payment_method', None),
-                           address, item[4], item[7], ))
+                           address, item[4], item[7], sum, ))
 
         values = []
         for order in orders:
             params = (session['user'], order[0], order[1], order[2], order[3],
-                      order[4], order[5], order[6])
+                      order[4], order[5], order[6], order[7])
             values.append(params)
         query = "INSERT into orders(buyer_id, order_quantity,\
                  order_date, order_price,\
                  delivery_status, payment_method, delivery_address,\
-                 med_id, med_role)\
-                 VALUES (%s, %s, NOW() , %s, %s, %s, %s, %s, %s)"
+                 med_id, med_role, order_total)\
+                 VALUES (%s, %s, NOW() , %s, %s, %s, %s, %s, %s, %s)"
         cur.executemany(query, values)
 
         values = []
@@ -72,4 +77,6 @@ def checkout_details():
     finally:
         cur.close()
         connection.close()
+    session['cdis'] = 0.00
+    flash("Order has been placed successfully!!", category="success")
     return redirect(url_for('mhome'))

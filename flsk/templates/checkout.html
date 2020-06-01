@@ -430,12 +430,12 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-right" colspan="7">Coupon Code:</td>
-                                                <td class="text-right">$0</td>
+                                                <td class="text-right">Rs {{ '%0.2f'| format(normalc|float) }}</td>
                                             </tr>
-                                            <!-- <tr>
-                                                <td class="text-right" colspan="4">Gift Voucher:</td>
-                                                <td class="text-right">$0</td>
-                                            </tr> -->
+                                            <tr>
+                                                <td class="text-right" colspan="7">P-Owner Discount:</td>
+                                                <td class="text-right">Rs {{ '%0.2f'| format(specialc|float) }}</td>
+                                            </tr>
                                             <tr>
                                                 <td class="text-right" colspan="7">Flat Shipping Rate:</td>
                                                 <td class="text-right">Rs 60.00</td>
@@ -450,7 +450,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-right" colspan="7"><strong>Order Total:</strong></td>
-                                                <td class="text-right">Rs. {{ '%0.2f'| format((subtotal*1.2-60)|float) }}</td>
+                                                <td class="text-right">Rs. {{ '%0.2f'| format((subtotal*1.2+60-normalc-specialc)|float) }}</td>
                                             </tr>
                                         </tfoot>
                                     </table>

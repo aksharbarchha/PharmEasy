@@ -108,6 +108,8 @@ def login():
                     session['user'] = user[0]
                     session['type'] = user[6]
                     session['person'] = user[3]
+                    session['cdis'] = 0.00
+                    session['pdis'] = 0.00
                     # if session['user'] == 'customew'
                     if user[6]=="supplier":
                         session['role'] = user[3]
@@ -178,7 +180,8 @@ def cart():
     items, subtotal, items_len = cart_items()
     coupon = 0.00
     if session['type']=='powner':
-        dis = "%.2f" % (subtotal*0.25)
+        dis = subtotal*0.25
+        session['pdis'] = dis
         val = 200
     else:
         dis = 0.00
@@ -195,7 +198,8 @@ def coupon():
     if session['type']=='customer':
         if couponcode=='SOMAIYA15':
             flash("Coupon applied successfully!!", category="success")
-            coupon = "%.2f" % (subtotal*0.15)
+            coupon = subtotal*0.15
+            session['cdis'] = coupon
             dis = 0.00
             val = 1
             return render_template("cart.html", items=items, val=val, subtotal=subtotal, items_len=items_len, coupon=coupon, dis=dis)
@@ -208,7 +212,8 @@ def coupon():
     else:
         flash("Coupon Discount is only for Normal Customers and not for Pharmacy Store Owners!!", category="danger")
         coupon = 0.00
-        dis = "%.2f" % (subtotal*0.25)
+        dis = subtotal*0.25
+        session['pdis'] = dis
         val = 200
         return render_template("cart.html", items=items, val=val, subtotal=subtotal, items_len=items_len, coupon=coupon, dis=dis)
 
@@ -285,6 +290,13 @@ def supplier():
 @supplier_required
 def qsearchsup():
     return ssearch()
+
+
+@app.route("/orderhistory", methods=['POST','GET'])
+@login_required
+@customer_required
+def ohistory():
+    return orhistory()
 
 
 @app.route("/updatepassword", methods=['POST','GET'])

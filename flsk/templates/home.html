@@ -6,6 +6,7 @@
         <link rel="icon" href="/static/images/favicon.png"/>
         <title>KJSCE Pharmacy</title>
         <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
         <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css"/>
         <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="/static/css/owl-carousel.css"/>
@@ -55,6 +56,7 @@
                                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Hi {{ session['person'] }} 
                                                     <span class="caret"></span></button>
                                                 <ul class="dropdown-menu">
+                                                    <li><a href="{{ url_for('ohistory') }}">Order History</a></li>
                                                     <li><a href="{{ url_for('updatepassword') }}">Update Password</a></li>
                                                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
 
@@ -172,7 +174,7 @@
                                                     <a href="{{ url_for('product', pur='p5') }}">Category Five (p5)</a><br />
                                                     <a href="{{ url_for('product', pur='p6') }}">Category Six (p6)</a><br />
                                                     <a href="{{ url_for('product', pur='p7') }}">Category Seven (p7)</a><br />
-                                                    <a href="{{ url_for('product', pur='p8') }}">Category Seven (p8)</a>
+                                                    <a href="{{ url_for('product', pur='p8') }}">Category Eight (p8)</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -307,14 +309,14 @@
                                 <div class="contentText Static">
                                     <h1>What is KJSCE Pharmacy</h1>
                                     <H4><p>KJSCE Pharmacy is a supplier of medicine which tries to supply medicine to the local public by cutting the middle man.</p></H4>
-                                    <H4><p>All Pharmacy stores and home owners can order any medicine. Medicine is delivered door-to-door by our delivery agents.</p></H4>
+                                    <H4><p>All customers can order medicine from our website and special discount is available for medical store owners*. Medicine will be delivered door-to-door by our delivery agents.</p></H4>
                                 </div>
                                 <!----content_1 End--!-->
 
 
                                 <!----content_2 For New Products--!-->
                                 <div class="contentText">
-                                    <h1>New Products For March</h1>
+                                    <h1>New Products For June</h1>
                                     <div class="row margin-top product-layout_width">
                                         {% for item in categories1 %}
                                         <div class="product-layout  col-md-4 col-sm-6 col-xs-12">
@@ -427,6 +429,7 @@
                                                             <button class="btn btn-default" value="add" type="submit" >
                                                                 Buy Now!
                                                             </button>
+                                                        </form>
                                                             <div class="pull-right">
                                                                 <form action="{{ url_for('favourites') }}" method="post">
                                                                 <input type="hidden" name="med_id" value="{{ item[6] }}">
@@ -440,7 +443,6 @@
                                                             </form>
                                                                 <!-- <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button> -->
                                                             </div>
-                                                        </form>
                                                         </li>
                                                     </ul>
                                                 </div>

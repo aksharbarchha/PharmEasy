@@ -7,6 +7,7 @@
         <link rel="icon" href="/static/images/favicon.png"/>
         <title>MediStore</title>
         <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
         <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css"/> 
         <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css"/>
         <script src="/static/js/jquery.min.js"></script>
@@ -231,8 +232,8 @@
                             <div class="col-sm-6">
                                 <div class="btn-group">
                                     <form action="{{ url_for('favourites') }}" method="post">
-                                    <input type="hidden" name="med_id" value="{{ item[6] }}">
-                                    <input type="hidden" name="med_role" value="{{ item[4] }}" />
+                                    <input type="hidden" name="med_id" value="{{ items[7] }}">
+                                    <input type="hidden" name="med_role" value="{{ items[4] }}" />
                                     <!-- <button  type="submit" id="demo" onclick="myFunction()" class="btn btn-primary wish_button"><i class="fa fa-heart"></i></button> -->
                                     <button  title="" class="btn btn-default mr_5" id="demo" onclick="myFunction()" type="submit"><i class="fa fa-heart"></i></button>
                                     <script>
@@ -243,10 +244,10 @@
                                 </form>
                                     <!-- <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button> -->
                                 </div>
-                                <div class="btn-group">
+                                <!-- <div class="btn-group">
                                     <button  title="" class="btn btn-default mr_5"  type="button"><i class="fa fa-heart"></i></button>
                                     <button  title="" class="btn btn-default"  type="button"><i class="fa fa-exchange"></i></button>
-                                </div>
+                                </div> -->
                                 <h1 style="color: #39baf0">{{ items[0] }}</h1>
                                 <ul class="list-unstyled product-section">
                                     <li><span>Product Brand:</span> {{ items[1] }}</li>
@@ -371,12 +372,14 @@
                                                     <span class="old_price1"></span>
                                                     <span class="new_price1">Rs. {{ item[3] }}</span>
                                                     <span class="saving1"></span><li>
-                                                <li class="li_product_desc">
-                                                    <div class="caption">
-                                                        <p>
-                                                            Brand: {{ item[1] }}
-                                                        </p>
-                                                    </div>
+                                                <li class="li_product_price">
+                                                    <p> Brand: {{ item[1] }}</p>
+                                                </li>
+                                                <li class="li_product_price">
+                                                    <p> Purpose: {{ item[2] }}</p>
+                                                </li>
+                                                <li class="li_product_price">
+                                                    <p> Type: {{ item[4] }}</p>
                                                 </li>
                                                  <form action="{{ url_for('item') }}" method="POST">
                                                         <input type="hidden" name="med_id" value="{{ item[5] }}">
@@ -386,6 +389,7 @@
                                                         <button class="btn btn-default" value="add" type="submit" >
                                                             Buy Now!
                                                         </button>
+                                                    </form>
                                                     <div class="pull-right">
                                                                 <form action="{{ url_for('favourites') }}" method="post">
                                                                 <input type="hidden" name="med_id" value="{{ item[5] }}">
@@ -399,9 +403,7 @@
                                                             </form>
                                                                 <!-- <button  type="button" class="btn btn-primary wish_button"><i class="fa fa-exchange"></i></button> -->
                                                             </div>
-                                                </li>
-                                                </form>
-                                                
+                                                </li>                                                
                                             </ul>
                                         </div>
                                     </div>
