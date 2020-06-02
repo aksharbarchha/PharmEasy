@@ -38,6 +38,25 @@ def category_items():
         cur.close()
     return items
 
+def buyid():
+    query = "SELECT user_id\
+             FROM login\
+             WHERE user_email = %s"
+    cur = connection.cursor()
+    try:
+        params = (session['email'],)
+        cur.execute(query, params)
+        b = cur.fetchone()
+        print(b)
+        # image = ("static/images/d1.jpg","static/images/d7.jpg","static/images/d2.jpg","static/images/d21.jpg","static/images/d23.jpg","static/images/img16.jpg","static/images/img17.jpg","static/images/img21.jpg","static/images/img15.jpg")
+    except mysql.connector.Error as err:
+        print(err)
+        return []
+    finally:
+        connection.commit()
+        cur.close()
+    print(b[0])
+    return b[0]
 
 
 def cart_value():

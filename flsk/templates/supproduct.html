@@ -8,6 +8,7 @@
         <link rel="icon" href="/static/images/favicon.png"/>
         <title>KJSCE MediStore</title>
         <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
         <link rel="stylesheet" type="text/css" href="/static/css/stylesheet.css"/> 
         <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css"/>
         <script src="/static/js/jquery.min.js"></script>
@@ -18,13 +19,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-sm-4 col-xs-4" id="logo" >
-                    <a href="home.html" class="logo-text">
+                    <a href="{{ url_for('supplier') }}" class="logo-text">
                         KJSCE<span style="color:#39BAF0; font-size:40px">Pharmacy</span>
                     </a>
                 </div>
                 <div class="col-md-5 col-sm-12 col-xs-12" style="display:none " id="navbar_hide" >
                     <nav  role="navigation" class="navbar navbar-inverse">
-                        <a href="home.html" style="float: left" class="logo-text">
+                        <a href="{{ url_for('supplier') }}" style="float: left" class="logo-text">
                             Medi<span style="color:#39BAF0; font-size:40px">STORE</span>
                         </a>
                         <div id="nav">
@@ -113,7 +114,7 @@
                                                     <a href="{{ url_for('supproduct', pur='p5') }}">Category Five (p5)</a><br />
                                                     <a href="{{ url_for('supproduct', pur='p6') }}">Category Six (p6)</a><br />
                                                     <a href="{{ url_for('supproduct', pur='p7') }}">Category Seven (p7)</a><br />
-                                                    <a href="{{ url_for('supproduct', pur='p8') }}">Category Seven (p8)</a>
+                                                    <a href="{{ url_for('supproduct', pur='p8') }}">Category Eight (p8)</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -156,7 +157,7 @@
                     <div class="col-md-9 col-sm-8 col-xs-12" id="content">            
                         <div class="contentText">
                             <div class="breadcrumbs">
-                                <a href="home.html"><i class="fa fa-home"></i></a>
+                                <a href="{{ url_for('supplier') }}"><i class="fa fa-home"></i></a>
                                 <a href="#">Products</a>
                             </div>
                             <h1>Category {{ items[0][2] }}</h1>

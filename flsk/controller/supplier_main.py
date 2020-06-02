@@ -28,7 +28,7 @@ def supadd():
              VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
     cur = connection.cursor()
     try:
-        params = (str(mid), nam, bran, purpos, dosag, str(expir), str(pric), typ, str(quantit), session['role'], )
+        params = (str(mid), nam, bran, purpos, str(expir), dosag, str(pric), typ, str(quantit), session['role'], )
         print(params)
         print(query)
         cur.execute(query, params)

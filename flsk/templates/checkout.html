@@ -54,6 +54,7 @@
                                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Hi {{ session['person'] }} 
                                                     <span class="caret"></span></button>
                                                 <ul class="dropdown-menu">
+                                                    <li><a href="{{ url_for('ohistory', bid=buid ) }}">Order History</a></li>
                                                     <li><a href="{{ url_for('updatepassword') }}">Update Password</a></li>
                                                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
 

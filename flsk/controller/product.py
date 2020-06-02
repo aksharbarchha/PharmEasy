@@ -6,6 +6,7 @@ from flask import redirect, url_for, render_template
 from flask import flash
 from flask import request
 import MySQLdb
+from controller.utilities import buyid
 
 
 connection=mysql.connector.connect(host="localhost", database='medicine', user="root", passwd="")
@@ -20,7 +21,7 @@ def single_product(pid, rol):
         cur.execute(query, params)
         items = cur.fetchone()
         ite, subtotal, items_len = cart_items()
-        
+        buid = buyid()
 
         query = "SELECT med_name,med_brandname,med_purpose,med_price,med_role,med_id\
                  FROM medicine\
@@ -34,4 +35,4 @@ def single_product(pid, rol):
         return []
     finally:
         cur.close()
-    return render_template("single-product.html", items=items, subtotal=subtotal, items_len=items_len, rel=rel)
+    return render_template("single-product.html", items=items, subtotal=subtotal, items_len=items_len, rel=rel, buid=buid)

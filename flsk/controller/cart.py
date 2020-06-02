@@ -43,7 +43,7 @@ def add_item(med_id, quantity, med_role):
         elif int(quantity) > int(med_quantity[0]):
             quantity = int(med_quantity[0])
             flash("Available Quantity is " + str(med_quantity[0])
-                  + " sheets only", category="danger")
+                  + " sheets only !! Minimum quantity should be 200 sheets", category="danger")
         else:
             buyer_user = session['user']
             query = "INSERT into cart_items \

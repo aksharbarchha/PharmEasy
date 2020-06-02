@@ -56,6 +56,7 @@
                                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Hi {{ session['person'] }} 
                                                     <span class="caret"></span></button>
                                                 <ul class="dropdown-menu">
+                                                    <li><a href="{{ url_for('ohistory', bid=buid ) }}">Order History</a></li>
                                                     <li><a href="{{ url_for('updatepassword') }}">Update Password</a></li>
                                                     <li><a href="{{ url_for('logout') }}">Logout</a></li>
 
@@ -160,7 +161,7 @@
                                                     <a href="{{ url_for('product', pur='p5') }}">Category Five (p5)</a><br />
                                                     <a href="{{ url_for('product', pur='p6') }}">Category Six (p6)</a><br />
                                                     <a href="{{ url_for('product', pur='p7') }}">Category Seven (p7)</a><br />
-                                                    <a href="{{ url_for('product', pur='p8') }}">Category Seven (p8)</a>
+                                                    <a href="{{ url_for('product', pur='p8') }}">Category Eight (p8)</a>
                                                 </div>
                                             </div>
                                         </div>

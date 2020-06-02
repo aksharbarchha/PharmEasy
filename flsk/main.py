@@ -8,7 +8,8 @@ from flask import redirect, url_for, render_template
 import yaml
 import MySQLdb,random,datetime
 from functools import wraps
-from controller.utilities import category_items, cart_value, upass
+from controller.utilities import category_items, cart_value, upass, buyid
+from controller.order import orhistory
 from controller.cart import add_item, cart_items, delete_item, update_item
 from controller.medicines import product_detail
 from controller.checkout import normal_checkout, checkout_details
@@ -58,12 +59,16 @@ def login_required(f):
 def customer_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        if session['type']=='customer' or 'powner':
-            return f(*args, **kwargs)
+        if 'email' in session:
+            if session['type']=='customer' or 'powner':
+                return f(*args, **kwargs)
+            else :
+                flash("You need to login as customer first!!", category="danger")
+                return redirect(url_for('login'))
         else:
             # if(request.endpoint in ['auth', 'registration']):
             #     return f(*args, **kwargs)
-            flash("You need to login as a customer first!!", category="danger")
+            flash("You need to login first!!", category="danger")
             return redirect(url_for('login'))
     return wrap
 
@@ -71,12 +76,16 @@ def customer_required(f):
 def supplier_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        if session['type']=='supplier':
-            return f(*args, **kwargs)
+        if 'email' in session:
+            if session['type']=='supplier':
+                return f(*args, **kwargs)
+            else :
+                flash("You need to login as supplier first!!", category="danger")
+                return redirect(url_for('login'))
         else:
             # if(request.endpoint in ['auth', 'registration']):
             #     return f(*args, **kwargs)
-            flash("You need to login as a supplier first!!", category="danger")
+            flash("You need to login first!!", category="danger")
             return redirect(url_for('login'))
     return wrap
 
@@ -174,10 +183,10 @@ def signup():
 
 
 @app.route("/cart")
-@login_required
 @customer_required
 def cart():
     items, subtotal, items_len = cart_items()
+    buid = buyid()
     coupon = 0.00
     if session['type']=='powner':
         dis = subtotal*0.25
@@ -186,14 +195,14 @@ def cart():
     else:
         dis = 0.00
         val = 1
-    return render_template("cart.html", items=items, val=val, subtotal=subtotal, items_len=items_len, coupon=coupon, dis=dis)
+    return render_template("cart.html", items=items, val=val, subtotal=subtotal, items_len=items_len, coupon=coupon, dis=dis, buid=buid)
 
 
 @app.route("/ccoupon", methods=['POST'])
-@login_required
 @customer_required
 def coupon():
     items, subtotal, items_len = cart_items()
+    buid = buyid()
     couponcode = request.form.get('coupo', None)
     if session['type']=='customer':
         if couponcode=='SOMAIYA15':
@@ -202,39 +211,36 @@ def coupon():
             session['cdis'] = coupon
             dis = 0.00
             val = 1
-            return render_template("cart.html", items=items, val=val, subtotal=subtotal, items_len=items_len, coupon=coupon, dis=dis)
+            return render_template("cart.html", items=items, val=val, subtotal=subtotal, items_len=items_len, coupon=coupon, dis=dis, buid=buid)
         else:
             flash("Coupon Invalid!!", category="danger")
             coupon = 0.00
             dis = 0.00
             val = 1
-            return render_template("cart.html", items=items, val=val, subtotal=subtotal, items_len=items_len, coupon=coupon, dis=dis)
+            return render_template("cart.html", items=items, val=val, subtotal=subtotal, items_len=items_len, coupon=coupon, dis=dis, buid=buid)
     else:
         flash("Coupon Discount is only for Normal Customers and not for Pharmacy Store Owners!!", category="danger")
         coupon = 0.00
         dis = subtotal*0.25
         session['pdis'] = dis
         val = 200
-        return render_template("cart.html", items=items, val=val, subtotal=subtotal, items_len=items_len, coupon=coupon, dis=dis)
+        return render_template("cart.html", items=items, val=val, subtotal=subtotal, items_len=items_len, coupon=coupon, dis=dis, buid=buid)
 
 
 
 @app.route("/product/<pur>", methods=['POST','GET'])
-@login_required
 @customer_required
 def product(pur):
     return product_detail(pur)
 
 
 @app.route("/supproduct/<pur>", methods=['POST','GET'])
-@login_required
 @supplier_required
 def supproduct(pur):
     return supproduct_detail(pur)
 
 
 @app.route("/checkout", methods=['POST','GET'])
-@login_required
 @customer_required
 def checkout():
     if(request.method == 'POST'):
@@ -244,7 +250,6 @@ def checkout():
     
 
 @app.route("/search", methods=['POST','GET'])
-@login_required
 @customer_required
 def qsearch():
     return query_search()
@@ -252,7 +257,6 @@ def qsearch():
 
 
 @app.route("/favourites", methods=['POST','GET'])
-@login_required
 @customer_required
 def favourites():
     if (request.method == 'GET'):
@@ -269,7 +273,6 @@ def demo():
 
 
 @app.route("/supplier", methods=['POST','GET'])
-@login_required
 @supplier_required
 def supplier():
     if request.method == 'GET':
@@ -286,17 +289,15 @@ def supplier():
         return redirect(request.referrer)
 
 @app.route("/supsearch", methods=['POST','GET'])
-@login_required
 @supplier_required
 def qsearchsup():
     return ssearch()
 
 
-@app.route("/orderhistory", methods=['POST','GET'])
-@login_required
+@app.route("/ohistory/<bid>", methods=['POST','GET'])
 @customer_required
-def ohistory():
-    return orhistory()
+def ohistory(bid):
+    return orhistory(bid)
 
 
 @app.route("/updatepassword", methods=['POST','GET'])
@@ -310,7 +311,6 @@ def updatepassword():
 
 
 @app.route("/singleproduct/<pid>/<rol>", methods=['POST','GET'])
-@login_required
 @customer_required
 def singleproduct(pid, rol):
     return single_product(pid, rol)
@@ -318,7 +318,6 @@ def singleproduct(pid, rol):
 
 
 @app.route("/cart_item", methods=['POST'])
-@login_required
 @customer_required
 def item():
     if request.method == "POST":
@@ -345,14 +344,14 @@ def item():
 
 
 @app.route("/mhome")
-@login_required
 @customer_required
 def mhome():
     categories=category_items()
     categories1=category_items()
     categories2=category_items()
     subtotal, len_items = cart_value()
-    return render_template("home.html", categories=categories, categories1=categories1, categories2=categories2 ,subtotal=subtotal, len_items=len_items)
+    buid = buyid()
+    return render_template("home.html", categories=categories, categories1=categories1, categories2=categories2 ,subtotal=subtotal, len_items=len_items, buid=buid)
 
 
 

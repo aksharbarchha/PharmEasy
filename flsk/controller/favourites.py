@@ -6,6 +6,7 @@ from flask import redirect, url_for, render_template
 from flask import flash
 from flask import request
 import MySQLdb
+from controller.utilities import buyid
 
 
 connection=mysql.connector.connect(host="localhost", database='medicine', user="root", passwd="")
@@ -20,6 +21,7 @@ def favourite():
     try:
         params = (session['user'], )
         cur.execute(query, params)
+        buid=buyid()
         items = cur.fetchall()
         ite, subtotal, items_len = cart_items()
         # image = ("static/images/d1.jpg","static/images/d7.jpg","static/images/d2.jpg","static/images/d21.jpg","static/images/d23.jpg","static/images/img16.jpg","static/images/img17.jpg","static/images/img21.jpg","static/images/img15.jpg")
@@ -28,7 +30,7 @@ def favourite():
         return []
     finally:
         cur.close()
-    return render_template("favourite.html", items=items, subtotal=subtotal, items_len=items_len)
+    return render_template("favourite.html", items=items, subtotal=subtotal, items_len=items_len, buid=buid)
 
 
 

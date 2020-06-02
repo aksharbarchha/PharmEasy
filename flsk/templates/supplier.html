@@ -44,7 +44,16 @@
                 <div class="col-md-4 col-md-offset-4 col-sm-offset-2  col-sm-6 col-xs-12" >
                     <div id="top_right" class="pl_0 col-md-6 col-xs-6">
                                 <H5><a class="btn btn-default" href="{{ url_for('logout') }}">Logout</a></H5>
+                                
                             </div>
+                            <div class="dropdown btn-group">
+                                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Hi {{ session['person'] }} 
+                                                    <span class="caret"></span></button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="{{ url_for('updatepassword') }}">Update Password</a></li>
+
+                                                </ul>
+                                            </div>
                         <div id="bottom_right">
                             <div class="row">
 

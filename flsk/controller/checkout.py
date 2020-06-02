@@ -6,6 +6,7 @@ from flask import redirect, url_for, render_template
 from flask import flash
 from flask import request
 import MySQLdb
+from controller.utilities import buyid
 
 
 connection=mysql.connector.connect(host="localhost", database='medicine', user="root", passwd="")
@@ -16,7 +17,8 @@ def normal_checkout():
     items, subtotal, items_len = cart_items()
     normalc = session['cdis']
     specialc = session['pdis']
-    return render_template("checkout.html", items=items, subtotal=subtotal, items_len=items_len, normalc=normalc, specialc=specialc)
+    buid=buyid()
+    return render_template("checkout.html", items=items, subtotal=subtotal, items_len=items_len, normalc=normalc, specialc=specialc, buid=buid)
 
 def checkout_details():
 
