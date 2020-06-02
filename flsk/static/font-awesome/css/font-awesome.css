@@ -421,6 +421,9 @@
 .fa-fast-forward:before {
   content: "\f050";
 }
+.fa-yahoo:before {
+  content: "\f19e";
+}
 .fa-step-forward:before {
   content: "\f051";
 }
