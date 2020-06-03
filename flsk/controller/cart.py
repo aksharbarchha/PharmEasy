@@ -18,6 +18,7 @@ def cart_items():
         params = (session['user'],)
         cur.execute(query, params)
         items = cur.fetchall()
+        print(items)
     except mysql.connector.Error as err:
         return [], 0, 0
     finally:
