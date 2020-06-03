@@ -7,9 +7,10 @@ from flask import flash
 from flask import request
 import MySQLdb
 from controller.utilities import buyid
+from controller.utilities import connect
 
 
-connection=mysql.connector.connect(host="localhost", database='medicine', user="root", passwd="")
+
 
 
 def favourite():
@@ -17,6 +18,7 @@ def favourite():
              FROM medicine\
              INNER JOIN favourite ON medicine.med_id = favourite.med_id and medicine.med_role = favourite.med_role\
              WHERE buyer_user = %s"
+    connection = connect()
     cur = connection.cursor()
     try:
         params = (session['user'], )
@@ -30,6 +32,7 @@ def favourite():
         return []
     finally:
         cur.close()
+        connection.close()
     return render_template("favourite.html", items=items, subtotal=subtotal, items_len=items_len, buid=buid)
 
 
@@ -42,6 +45,7 @@ def fav():
     query = "INSERT into favourite \
              (med_id,med_role,buyer_user)\
              VALUES (%s, %s, %s)"
+    connection = connect()
     cur = connection.cursor()
     try:
         params = (mid, r, str(buyer_user), )
@@ -52,4 +56,5 @@ def fav():
         print(err)
     finally:
         cur.close()
+        connection.close()
     return redirect(url_for('favourites'))

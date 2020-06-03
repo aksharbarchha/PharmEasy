@@ -7,9 +7,10 @@ from flask import flash
 from flask import request
 import MySQLdb
 from controller.utilities import buyid
+from controller.utilities import connect
 
 
-connection=mysql.connector.connect(host="localhost", database='medicine', user="root", passwd="")
+
 
 
 def query_search():
@@ -33,6 +34,7 @@ def query_search():
                  OR med_name LIKE %s \
                  OR med_name = %s "
         params = (se+"%", "%"+se, "%"+se+"%", se, )
+    connection = connect()
     cur = connection.cursor()
     try:
         cur.execute(query, params)
@@ -48,5 +50,6 @@ def query_search():
     finally:
         connection.commit()
         cur.close()
+        connection.close()
     return render_template('search.html', items=items, subtotal=subtotal, items_len=items_len, buid=buid)
     

@@ -8,7 +8,7 @@ from flask import redirect, url_for, render_template
 import yaml
 import MySQLdb,random,datetime
 from functools import wraps
-from controller.utilities import category_items, cart_value, upass, buyid
+from controller.utilities import category_items, cart_value, upass, buyid, connect
 from controller.order import orhistory
 from controller.cart import add_item, cart_items, delete_item, update_item
 from controller.medicines import product_detail
@@ -24,11 +24,10 @@ app.secret_key = "super secret key"
 
 
 # db = yaml.load(open('db.yaml'))
-# app.config['MYSQL_HOST'] = db['mysql_host']
-# app.config['MYSQL_USER'] = db['mysql_user']
-# app.config['MYSQL_PASSWORD'] = db['mysql_password']
-# app.config['MYSQL_DB'] = db['mysql_db']
-connection = mysql.connector.connect(host="localhost", database='medicine', user="root", passwd="")
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'medicine'
 
 mysql = MySQL(app)
 bcrypt = Bcrypt(app)
@@ -38,6 +37,7 @@ bcrypt = Bcrypt(app)
 @app.route("/")
 @app.route("/home")
 def home():
+    print(dir(mysql))
     return render_template("index.html")
 
 
@@ -106,6 +106,7 @@ def login():
         password = request.form['pass']
         query = "SELECT * FROM login WHERE user_email = "+"'"+email+"'"
         # query1 = "SELECT user_category FROM login WHERE user_email=%s"
+        connection = connect()
         cur=connection.cursor()
         try:
             cur.execute(query)
@@ -136,7 +137,9 @@ def login():
         except (MySQLdb.Error, MySQLdb.Warning) as e:
             print(e)
             return None
-        cur.close()
+        finally:
+            cur.close()
+            connection.close()
     #     user = Login.query.filter_by(user_email=email).first()
  
         # if user and bcrypt.check_password(password=password):
@@ -159,6 +162,7 @@ def signup():
         email = request.form['email']
         address = request.form['address']
         category = request.form['category']
+        connection = connect()
         cur = connection.cursor()
         cur.execute("SELECT * FROM login WHERE user_email = %s", (email, ))
         existing_user = cur.fetchone()
@@ -166,6 +170,7 @@ def signup():
             cur.execute("INSERT INTO login(user_email, user_pass, user_first_name, user_last_name, user_address, user_category) VALUES(%s, %s, %s, %s, %s, %s)",(email, hashed_pass, fname, lname, address, category))
             connection.commit()
             cur.close()
+            connection.close()
             # message = "SignUp successfull!!"
             flash("SignUp Successfull!!", 'success')
             return redirect(url_for('login'))
@@ -177,6 +182,8 @@ def signup():
         
         else:
             flash("Email id already exists!!", 'danger')
+            cur.close()
+            connection.close()
             return redirect(url_for('signup'))
             # message = "User already exists with that email id"
     return render_template("signup.html", title='SignUp')

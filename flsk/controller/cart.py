@@ -2,9 +2,8 @@ from flask_mysqldb import MySQL
 import mysql.connector
 from flask import session
 from flask import flash
+from controller.utilities import connect
 
-
-connection = mysql.connector.connect(host="localhost", database='medicine', user="root", passwd="")
 
 def cart_items():
     query = "SELECT item_id, med_price, med_quantity, med_name,\
@@ -12,6 +11,7 @@ def cart_items():
          med_role, dosage_form, cart_items.item_quantity FROM medicine\
          INNER JOIN cart_items ON medicine.med_id = cart_items.med_id and medicine.med_role = cart_items.med_rol\
          WHERE buyer_user = %s"
+    connection = connect()
     cur = connection.cursor()
     try:
         
@@ -23,6 +23,7 @@ def cart_items():
         return [], 0, 0
     finally:
         cur.close()
+        connection.close()
     subtotal = 0
     couponcode = 0
     for item in items:
@@ -33,6 +34,7 @@ def cart_items():
 
 def add_item(med_id, quantity, med_role):
     query = "SELECT med_quantity FROM medicine WHERE med_id = %s and med_role = %s"
+    connection = connect()
     cur = connection.cursor()
     try:
         
@@ -51,20 +53,18 @@ def add_item(med_id, quantity, med_role):
                      (item_quantity, buyer_user, med_id, med_rol)\
                      VALUES (%s, %s, %s, %s)"
             try:
-                cur = connection.cursor()
                 params = (quantity, buyer_user, med_id, med_role, )
                 cur.execute(query, params)
                 flash("Medicine added to the cart!!","success")
                 connection.commit()
             except mysql.connector.Error as err:
                 print(err)
-            finally:
-                cur.close()
     except mysql.connector.Error as err:
         print(err)
         return
     finally:
         cur.close()
+        connection.close()
 
     
 
@@ -72,6 +72,7 @@ def add_item(med_id, quantity, med_role):
 
 def delete_item(item_id):
     query = "DELETE FROM cart_items WHERE item_id = %s"
+    connection = connect()
     cur = connection.cursor()
 
     try:
@@ -82,11 +83,13 @@ def delete_item(item_id):
         print(err)
     finally:
         cur.close()
+        connection.close()
 
 
 
 def update_item(item_id, quantity, med_id, med_role):
     query = "SELECT med_quantity FROM medicine WHERE med_id = %s and med_role = %s"
+    connection = connect()
     cur = connection.cursor()
     try:
         params = (med_id, med_role, )
@@ -104,6 +107,7 @@ def update_item(item_id, quantity, med_id, med_role):
         print(err)
     finally:
         cur.close()
+        connection.close()
 
     query = "UPDATE cart_items SET item_quantity = %s WHERE item_id = %s and med_rol = %s"
     try:
@@ -115,6 +119,7 @@ def update_item(item_id, quantity, med_id, med_role):
         print(err)
     finally:
         cur.close()
+        connection.close()
     msg = "Quantity Updated successfully!!"
     cat = "success"
     return msg, cat

@@ -6,9 +6,10 @@ from flask import redirect, url_for, render_template
 from flask import flash
 from flask import request
 import MySQLdb
+from controller.utilities import connect
 
 
-connection=mysql.connector.connect(host="localhost", database='medicine', user="root", passwd="")
+
 
 
 
@@ -32,6 +33,7 @@ def ssearch():
                  OR med_name LIKE %s and med_supplier=%s\
                  OR med_name = %s and med_supplier=%s"
         params = (se+"%", sup, "%"+se, sup, "%"+se+"%", sup, se, sup, )
+    connection = connect()
     cur = connection.cursor()
     try:
         cur.execute(query, params)
@@ -46,6 +48,7 @@ def ssearch():
     finally:
         connection.commit()
         cur.close()
+        connection.close()
     return render_template('supsearch.html', items=items)
 
 
@@ -53,6 +56,7 @@ def supproduct_detail(pur):
     query = "SELECT med_name,med_brandname,med_purpose,med_price,med_role,dosage_form,med_id,med_quantity\
              FROM medicine\
              WHERE med_purpose = %s and med_supplier=%s"
+    connection = connect()
     cur = connection.cursor()
     try:
         
@@ -66,4 +70,5 @@ def supproduct_detail(pur):
     finally:
         connection.commit()
         cur.close()
+        connection.close()
     return render_template("supproduct.html", items=items)

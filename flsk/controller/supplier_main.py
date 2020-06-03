@@ -6,9 +6,10 @@ from flask import redirect, url_for, render_template
 from flask import flash
 from flask import request
 import MySQLdb
+from controller.utilities import connect
 
 
-connection=mysql.connector.connect(host="localhost", database='medicine', user="root", passwd="")
+
 
 
 def supadd():
@@ -26,6 +27,7 @@ def supadd():
              med_price, med_role, med_quantity,\
              med_supplier)\
              VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    connection = connect()
     cur = connection.cursor()
     try:
         params = (str(mid), nam, bran, purpos, str(expir), dosag, str(pric), typ, str(quantit), session['role'], )
@@ -39,6 +41,7 @@ def supadd():
         return False
     finally:
         cur.close()
+        connection.close()
     return True
 
 
@@ -48,6 +51,7 @@ def supupdate():
     pric = request.form.get('price', None)
     quantit = request.form.get('quantity', None)
     q = "SELECT med_brandname FROM medicine WHERE med_name=%s and med_role=%s"
+    connection = connect()
     cur = connection.cursor()
     params = (name, rol, )
     cur.execute(q, params)
@@ -83,3 +87,4 @@ def supupdate():
         return []
     finally:
         cur.close()
+        connection.close()

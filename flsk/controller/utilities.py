@@ -7,24 +7,24 @@ from flask import redirect, url_for, render_template
 
 
 
+
 app = Flask(__name__)
 app.secret_key = "super secret key"
-
-
-# db = yaml.load(open('db.yaml'))
-# app.config['MYSQL_HOST'] = db['mysql_host']
-# app.config['MYSQL_USER'] = db['mysql_user']
-# app.config['MYSQL_PASSWORD'] = db['mysql_password']
-# app.config['MYSQL_DB'] = db['mysql_db']
-connection = mysql.connector.connect(host="localhost", database='medicine', user="root", passwd="")
-
 mysql = MySQL(app)
 bcrypt = Bcrypt(app)
+# db = yaml.load(open('db.yaml'))
+
+
+
+def connect():
+    return mysql.connector.connect(host="localhost", database="medicine", user="root", passwd="", port = 3306)
+
 
 def category_items():
     query = "SELECT med_name,med_brandname,med_purpose,med_price,med_role,dosage_form,med_id\
              FROM medicine\
              ORDER BY RAND() LIMIT 9"
+    connection = connect()
     cur = connection.cursor()
     try:
         cur.execute(query, )
@@ -36,12 +36,14 @@ def category_items():
     finally:
         connection.commit()
         cur.close()
+        connection.close()
     return items
 
 def buyid():
     query = "SELECT user_id\
              FROM login\
              WHERE user_email = %s"
+    connection = connect()
     cur = connection.cursor()
     try:
         params = (session['email'],)
@@ -55,6 +57,7 @@ def buyid():
     finally:
         connection.commit()
         cur.close()
+        connection.close()
     print(b[0])
     return b[0]
 
@@ -65,6 +68,7 @@ def cart_value():
          med_role, dosage_form, cart_items.item_quantity FROM medicine\
          INNER JOIN cart_items ON medicine.med_id = cart_items.med_id and medicine.med_role = cart_items.med_rol\
          WHERE buyer_user = %s"
+    connection = connect()   
     cur = connection.cursor()
     try:
         params = (session['user'],)
@@ -74,6 +78,7 @@ def cart_value():
         return [], 0, 0
     finally:
         cur.close()
+        connection.close()
     subtotal = 0
     for item in items:
         subtotal += item[1]*item[9]
@@ -86,6 +91,7 @@ def upass():
     npass = request.form.get('npass', None)
     cpass = request.form.get('cpass', None)
     q = "SELECT user_pass FROM login WHERE user_id=%s"
+    connection = connect()
     cur = connection.cursor()
     params = (session['user'], )
     cur.execute(q, params)
@@ -111,3 +117,4 @@ def upass():
         return []
     finally:
         cur.close()
+        connection.close()

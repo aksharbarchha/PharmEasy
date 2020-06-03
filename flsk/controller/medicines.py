@@ -4,8 +4,9 @@ from flask import session
 from flask import redirect, url_for, render_template
 from controller.cart import cart_items
 from controller.utilities import buyid
+from controller.utilities import connect
 
-connection = mysql.connector.connect(host="localhost", database='medicine', user="root", passwd="")
+
 
 
 
@@ -14,6 +15,7 @@ def product_detail(pur):
              FROM medicine\
              WHERE med_purpose = %s"
     try:
+        connection = connect()
         cur = connection.cursor()
         params = (pur, )
         cur.execute(query, params)
@@ -25,6 +27,6 @@ def product_detail(pur):
         print(err)
         return []
     finally:
-        connection.commit()
         cur.close()
+        connection.close()
     return render_template("product.html", items=items, subtotal=subtotal, items_len=items_len, buid=buid)

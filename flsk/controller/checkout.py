@@ -7,9 +7,9 @@ from flask import flash
 from flask import request
 import MySQLdb
 from controller.utilities import buyid
+from controller.utilities import connect
 
 
-connection=mysql.connector.connect(host="localhost", database='medicine', user="root", passwd="")
 
 
 def normal_checkout():
@@ -21,13 +21,13 @@ def normal_checkout():
     return render_template("checkout.html", items=items, subtotal=subtotal, items_len=items_len, normalc=normalc, specialc=specialc, buid=buid)
 
 def checkout_details():
-
-    address = (str(request.form.get('address', None)) + ", "+ str(request.form.get('city', None)) + ", "+ str(request.form.get('postcode', None)) + ", "+ str(request.form.get('zone_id', None)))
+    connection = connect()
     cur = connection.cursor()
+    address = (str(request.form.get('address', None)) + ", "+ str(request.form.get('city', None)) + ", "+ str(request.form.get('postcode', None)) + ", "+ str(request.form.get('zone_id', None)))
     try:
         query = "INSERT into address(buyer_id, buyer_address)\
                  VALUES (%s, %s)"
-        
+        buid = buyid()
         params = (session['user'], address, )
         cur.execute(query, params)
 
@@ -67,8 +67,9 @@ def checkout_details():
             params = (item[0], )
             values.append(params)
 
-        query = "DELETE FROM cart_items WHERE item_id = %s "
-        cur.executemany(query, values)
+        query = "DELETE FROM cart_items WHERE buyer_user = %s "
+        params = (str(buid), )
+        cur.execute(query, params)
 
         connection.commit()
     except mysql.connector.Error as err:

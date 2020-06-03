@@ -7,14 +7,16 @@ from flask import flash
 from flask import request
 import MySQLdb
 from controller.utilities import buyid
+from controller.utilities import connect
 
 
-connection=mysql.connector.connect(host="localhost", database='medicine', user="root", passwd="")
+
 
 def single_product(pid, rol):
     query = "SELECT med_name,med_brandname,med_purpose,med_price,med_role,dosage_form,med_quantity,med_id,med_expiry\
              FROM medicine\
              WHERE med_id= %s and med_role = %s"
+    connection = connect()
     cur = connection.cursor()
     try:
         params = (str(pid), str(rol), )
@@ -35,4 +37,5 @@ def single_product(pid, rol):
         return []
     finally:
         cur.close()
+        connection.close()
     return render_template("single-product.html", items=items, subtotal=subtotal, items_len=items_len, rel=rel, buid=buid)
