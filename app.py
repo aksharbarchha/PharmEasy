@@ -5,7 +5,6 @@ from flask import flash
 import mysql.connector
 from flask import Flask
 from flask import redirect, url_for, render_template
-import yaml
 import MySQLdb,random,datetime
 from functools import wraps
 from controller.utilities import category_items, cart_value, upass, buyid, connect
