@@ -24,10 +24,10 @@ app.secret_key = "super secret key"
 
 
 # db = yaml.load(open('db.yaml'))
-app.config['MYSQL_HOST'] = 'remotemysql.com:3306'
-app.config['MYSQL_USER'] = 'GvRAQlut3Z'
-app.config['MYSQL_PASSWORD'] = 'zz8qpNNOLJ'
-app.config['MYSQL_DB'] = 'GvRAQlut3Z'
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'medicine'
 
 mysql = MySQL(app)
 bcrypt = Bcrypt(app)
