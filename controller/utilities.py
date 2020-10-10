@@ -1,4 +1,4 @@
-from flask_mysqldb import MySQL
+# from flask_mysqldb import MySQL
 import mysql.connector
 from flask import session, flash, Flask
 from flask import request
@@ -10,14 +10,14 @@ from flask import redirect, url_for, render_template
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
-mysql = MySQL(app)
+# mysql = MySQL(app)
 bcrypt = Bcrypt(app)
 # db = yaml.load(open('db.yaml'))
 
 
 
 def connect():
-    return mysql.connector.connect(host="localhost", database="medicine", user="root", passwd="", port = 3306)
+    return mysql.connector.connect(host="remotemysql.com", database="GvRAQlut3Z", user="GvRAQlut3Z", passwd="zz8qpNNOLJ", port = 3306)
 
 
 def category_items():

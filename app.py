@@ -1,7 +1,7 @@
 from flask_bcrypt import Bcrypt
 from flask import request,session
 from flask import flash
-from flask_mysqldb import MySQL
+# from flask_mysqldb import MySQL
 import mysql.connector
 from flask import Flask
 from flask import redirect, url_for, render_template
@@ -29,7 +29,7 @@ app.config['MYSQL_USER'] = 'GvRAQlut3Z'
 app.config['MYSQL_PASSWORD'] = 'zz8qpNNOLJ'
 app.config['MYSQL_DB'] = 'GvRAQlut3Z'
 
-mysql = MySQL(app)
+# mysql = MySQL(app)
 bcrypt = Bcrypt(app)
 
 

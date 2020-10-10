@@ -1,4 +1,4 @@
-from flask_mysqldb import MySQL
+# from flask_mysqldb import MySQL
 import mysql.connector
 from flask import session
 from controller.cart import cart_items
