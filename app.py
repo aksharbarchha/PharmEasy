@@ -5,7 +5,7 @@ from flask import flash
 import mysql.connector
 from flask import Flask
 from flask import redirect, url_for, render_template
-import MySQLdb,random,datetime
+import random,datetime
 from functools import wraps
 from controller.utilities import category_items, cart_value, upass, buyid, connect
 from controller.order import orhistory
@@ -133,7 +133,7 @@ def login():
             else:
                 flash("Email id does not exist!!", 'danger')
                 return redirect(url_for('login'))
-        except (MySQLdb.Error, MySQLdb.Warning) as e:
+        except mysql.connector.Error as e:
             print(e)
             return None
         finally:

@@ -5,7 +5,7 @@ from controller.cart import cart_items
 from flask import redirect, url_for, render_template
 from flask import flash
 from flask import request
-import MySQLdb
+# import MySQLdb
 from controller.utilities import connect
 
 
