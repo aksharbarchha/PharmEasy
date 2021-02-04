@@ -22,11 +22,11 @@ app = Flask(__name__)
 app.secret_key = "super secret key"
 
 
-# db = yaml.load(open('db.yaml'))
+# remotemysql.com - email- kjsce@dffwer.com 
 app.config['MYSQL_HOST'] = 'remotemysql.com:3306'
-app.config['MYSQL_USER'] = 'GvRAQlut3Z'
-app.config['MYSQL_PASSWORD'] = 'zz8qpNNOLJ'
-app.config['MYSQL_DB'] = 'GvRAQlut3Z'
+app.config['MYSQL_USER'] = 'v00dpY1wp4'
+app.config['MYSQL_PASSWORD'] = 'plWh42dJzQ'
+app.config['MYSQL_DB'] = 'v00dpY1wp4'
 
 # mysql = MySQL(app)
 bcrypt = Bcrypt(app)
