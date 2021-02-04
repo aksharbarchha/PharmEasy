@@ -17,7 +17,7 @@ bcrypt = Bcrypt(app)
 
 
 def connect():
-    return mysql.connector.connect(host="remotemysql.com", database="GvRAQlut3Z", user="GvRAQlut3Z", passwd="zz8qpNNOLJ", port = 3306)
+    return mysql.connector.connect(host="remotemysql.com", database="v00dpY1wp4", user="v00dpY1wp4", passwd="plWh42dJzQ", port = 3306)
 
 
 def category_items():
