@@ -23,7 +23,8 @@ app.secret_key = "super secret key"
 
 
 # remotemysql.com - email- kjsce@dffwer.com 
-app.config['MYSQL_HOST'] = 'remotemysql.com:3306'
+app.config['MYSQL_HOST'] = 'remotemysql.com'
+app.config['MYSQL_PORT'] = '3306'
 app.config['MYSQL_USER'] = 'v00dpY1wp4'
 app.config['MYSQL_PASSWORD'] = 'plWh42dJzQ'
 app.config['MYSQL_DB'] = 'v00dpY1wp4'
