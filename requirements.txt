@@ -6,7 +6,7 @@ Flask==1.1.2
 Flask-Bcrypt==0.7.1
 future==0.18.2
 itsdangerous==1.1.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 kiwisolver==1.1.0
 MarkupSafe==1.1.1
 matplotlib==3.0.3
