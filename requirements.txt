@@ -13,7 +13,7 @@ matplotlib==3.0.3
 mysql-connector-python==8.0.19
 numpy==1.18.5
 Pillow==7.2.0
-protobuf==3.13.0
+protobuf==3.15.0
 pycparser==2.20
 pygame==1.9.6
 pyparsing==2.4.7
