@@ -11,7 +11,7 @@ kiwisolver==1.1.0
 MarkupSafe==1.1.1
 matplotlib==3.0.3
 mysql-connector-python==8.0.19
-numpy==1.18.5
+numpy==1.22.0
 Pillow==7.2.0
 protobuf==3.13.0
 pycparser==2.20
